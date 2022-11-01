@@ -1,1 +1,3 @@
-{{\Carbon\Carbon::now()->addDay(5)->weekday()}}
+<x-guest-layout>
+
+</x-guest-layout>

@@ -4,9 +4,9 @@
             <a href="/">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
+        <h1 class="mt-5 text-pink-500 font-bold">ADMIN REGISTER</h1>
         </x-slot>
-
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('admin.register.store') }}">
             @csrf
 
             <!-- Name -->

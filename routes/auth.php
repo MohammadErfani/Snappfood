@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\Auth\AdminLoginController;
+use App\Http\Controllers\admin\Auth\AdminRegisterController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\restaurant\Auth\SalesmanLoginController;
+use App\Http\Controllers\restaurant\Auth\SalesmanRegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -59,10 +62,17 @@ Route::middleware('auth')->group(function () {
 
 // Admin Authentication
 
-Route::prefix('/admin')->name('admin.')->group(function (){
-    Route::get('login',[AdminLoginController::class,'create']);
-    Route::post('login',[AdminLoginController::class,'store']);
-    Route::get('register',[RegisterAdminController::class,'create']);
-    Route::post('register',[RegisterAdminController::class,'store']);
-
+Route::prefix('/admin')->name('admin.')->middleware('isNotAdmin')->group(function (){
+    Route::get('login',[AdminLoginController::class,'create'])->name('login');
+    Route::post('login',[AdminLoginController::class,'store'])->name('login.store');
+    Route::get('register',[AdminRegisterController::class,'create'])->name('register');
+    Route::post('register',[AdminRegisterController::class,'store'])->name('register.store');
 });
+    Route::post('/admin/logout',[AdminLoginController::class,'destroy'])->middleware('isAdmin')->name('logout');
+Route::prefix('/salesman')->name('salesman.')->middleware('isNotSalesman')->group(function (){
+    Route::get('login',[SalesmanLoginController::class,'create'])->name('login');
+    Route::post('login',[SalesmanLoginController::class,'store'])->name('login.store');
+    Route::get('register',[SalesmanRegisterController::class,'create'])->name('register');
+    Route::post('register',[SalesmanRegisterController::class,'store'])->name('register.store');
+});
+    Route::post('/salesman/logout',[SalesmanLoginController::class,'destroy'])->middleware('isSalesman')->name('logout');

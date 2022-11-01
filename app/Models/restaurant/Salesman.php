@@ -12,5 +12,10 @@ use Laravel\Sanctum\HasApiTokens;
 class Salesman extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
 
 }

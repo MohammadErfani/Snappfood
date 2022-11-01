@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\admin\Auth;
+namespace App\Http\Controllers\restaurant\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\admin\Admin;
+use App\Models\restaurant\Salesman;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -11,8 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
-class AdminRegisterController extends Controller
+class SalesmanRegisterController extends Controller
 {
+
     /**
      * Show the form for creating a new resource.
      *
@@ -20,7 +22,7 @@ class AdminRegisterController extends Controller
      */
     public function create()
     {
-        return view('admin.auth.register');
+        return view('restaurant.auth.register');
     }
 
     /**
@@ -37,17 +39,17 @@ class AdminRegisterController extends Controller
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
-        $admin = Admin::create([
+        $salesman = Salesman::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($admin));
+        event(new Registered($salesman));
 
-        Auth::guard('admin')->login($admin);
+        Auth::guard('admin')->login($salesman);
 
-        return redirect(RouteServiceProvider::ADMIN_HOME);
+        return redirect(RouteServiceProvider::RESTAURANT_HOME);
     }
 
 }
