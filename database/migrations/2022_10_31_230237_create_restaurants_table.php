@@ -16,10 +16,7 @@ return new class extends Migration
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('address');
             $table->string('picture')->nullable();
-            $table->string('latitude');
-            $table->string('longitude');
             $table->string('phone');
             $table->string('bank_account');
             $table->unsignedBigInteger('salesman_id')->unique();
