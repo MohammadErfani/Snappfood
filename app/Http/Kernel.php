@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AuthRestaurant;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsNotAdmin;
 use App\Http\Middleware\IsNotSalesman;
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'isNotSalesman'=>IsNotSalesman::class,
         'isAdmin'=>IsAdmin::class,
         'isSalesman'=>IsSalesman::class,
+        'authRestaurant'=>AuthRestaurant::class,
     ];
 }

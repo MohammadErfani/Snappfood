@@ -68,11 +68,11 @@ Route::prefix('/admin')->name('admin.')->middleware('isNotAdmin')->group(functio
     Route::get('register',[AdminRegisterController::class,'create'])->name('register');
     Route::post('register',[AdminRegisterController::class,'store'])->name('register.store');
 });
-    Route::post('/admin/logout',[AdminLoginController::class,'destroy'])->middleware('isAdmin')->name('logout');
+    Route::post('/admin/logout',[AdminLoginController::class,'destroy'])->middleware('isAdmin')->name('admin.logout');
 Route::prefix('/salesman')->name('salesman.')->middleware('isNotSalesman')->group(function (){
     Route::get('login',[SalesmanLoginController::class,'create'])->name('login');
     Route::post('login',[SalesmanLoginController::class,'store'])->name('login.store');
     Route::get('register',[SalesmanRegisterController::class,'create'])->name('register');
     Route::post('register',[SalesmanRegisterController::class,'store'])->name('register.store');
 });
-    Route::post('/salesman/logout',[SalesmanLoginController::class,'destroy'])->middleware('isSalesman')->name('logout');
+    Route::post('/salesman/logout',[SalesmanLoginController::class,'destroy'])->middleware('isSalesman')->name('salesman.logout');

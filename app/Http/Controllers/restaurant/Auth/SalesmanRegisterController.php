@@ -47,7 +47,7 @@ class SalesmanRegisterController extends Controller
 
         event(new Registered($salesman));
 
-        Auth::guard('admin')->login($salesman);
+        Auth::guard('salesman')->login($salesman);
 
         return redirect(RouteServiceProvider::RESTAURANT_HOME);
     }

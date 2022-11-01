@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
+use App\Models\restaurant\Restaurant;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsSalesman
+class AuthRestaurant
 {
     /**
      * Handle an incoming request.
@@ -18,9 +18,10 @@ class IsSalesman
      */
     public function handle(Request $request, Closure $next,$guard = "salesman")
     {
-        if (Auth::guard($guard)->check()) {
-        return $next($request);
+
+        if (Auth::guard($guard)->check() && Restaurant::where('salesman_id',Auth::guard($guard)->id())->first()){
+            return $next($request);
         }
-            return redirect()->route('salesman.login');
+        return redirect()->route('restaurant.create');
     }
 }

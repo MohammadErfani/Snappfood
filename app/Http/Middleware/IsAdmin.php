@@ -21,6 +21,6 @@ class IsAdmin
         if (Auth::guard($guard)->check()) {
         return $next($request);
         }
-            return redirect(RouteServiceProvider::ADMIN_HOME);
+            return redirect()->route('admin.login');
     }
 }

@@ -15,7 +15,7 @@
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen ">
-@include('layouts.navigation')
+@include('layouts.adminNavigation')
 
 <!-- Page Heading -->
     @if (isset($header))
@@ -25,33 +25,61 @@
             </div>
         </header>
     @endif
-    <div class="flex">
-        <aside class="w-64  right h-screen sticky top-0  " aria-label="Sidebar">
-            <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800 ">
+    <div class="flex ">
+        <!-- Page Content -->
+        <main class="w-5/6">
+            {{ $slot }}
+        </main>
+        <aside class="w-64  right h-screen  sticky top-0  " aria-label="Sidebar">
+            <div class="overflow-y-auto py-4 px-3 bg-green-400  rounded dark:bg-gray-800 ">
                 <ul class="space-y-2">
                     <li>
-                        <a href="/dashboard"
-                           class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="ml-3">Dashboard</span>
+                        <a href="{{route('admin.dashboard')}}"
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="ml-3 font-extrabold">داشبورد</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="#"
-                           class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap">Create New Appointment</span>
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت دسته‌بندی غذا</span>
                         </a>
                     </li>
                     <li>
                         <a href="#"
-                           class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap">All Of Your Appointments</span>
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">تمام دسته‌بندی‌های غذا</span>
                         </a>
                     </li>
                     <li>
                         <a href="#"
-                           class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap">Your Info</span>
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت دسته بندی رستوران</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">تمام دسته‌بندی‌های رستوران</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت بنر</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت تخفیف</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">حذف کامنت</span>
                         </a>
                     </li>
 
@@ -59,10 +87,7 @@
             </div>
         </aside>
 
-        <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+
     </div>
 </div>
 </body>
