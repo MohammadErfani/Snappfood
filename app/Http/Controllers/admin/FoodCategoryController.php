@@ -1,48 +1,62 @@
 <?php
 
-namespace App\Http\Controllers\restaurant;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
+use App\Models\admin\FoodCategory;
 use Illuminate\Http\Request;
 
-class RestaurantController extends Controller
+class FoodCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        //
+        $foodCategories = FoodCategory::all();
+        return view('admin.foodCategories',compact('foodCategories'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        return view('restaurant.createRestaurant');
+        $foodCategories = FoodCategory::all();
+        return view('admin.createFoodCategory',compact('foodCategories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \app\Http\Requests\CategoryRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        if ($request->file('picture')===null){
+            $picturePath = null;
+        }else {
+            $picturePath = $request->file('picture')->store('uploads/foodCategories');
+        }
+        FoodCategory::create([
+            'name'=>$request->name,
+            'parent_Category'=>$request->parentCategory,
+            'picture'=>$picturePath
+        ]);
+        return redirect()->route('admin.foodCategory.index');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *@return \Illuminate\View\View
      */
     public function show($id)
     {
