@@ -47,7 +47,7 @@ class RestaurantCategoryController extends Controller
         }
         RestaurantCategory::create([
             'name'=>$request->name,
-            'parent_Category'=>$request->parentCategory,
+            'parent_category'=>$request->parentCategory,
             'picture'=>$picturePath
         ]);
         return redirect()->route('admin.restaurantCategory.index');

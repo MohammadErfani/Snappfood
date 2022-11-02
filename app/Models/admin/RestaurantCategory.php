@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class RestaurantCategory extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','picture','parent_id'];
+    protected $fillable = ['name','picture','parent_category'];
     public function restaurants()
     {
         return $this->belongsToMany(Restaurant::class);

@@ -39,6 +39,7 @@ class FoodCategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+//        dd($request->parentCategory);
         if ($request->file('picture')===null){
             $picturePath = null;
         }else {
@@ -46,7 +47,7 @@ class FoodCategoryController extends Controller
         }
         FoodCategory::create([
             'name'=>$request->name,
-            'parent_Category'=>$request->parentCategory,
+            'parent_category'=>$request->parentCategory,
             'picture'=>$picturePath
         ]);
         return redirect()->route('admin.foodCategory.index');
