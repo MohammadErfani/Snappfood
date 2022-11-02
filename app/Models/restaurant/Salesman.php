@@ -18,4 +18,8 @@ class Salesman extends Authenticatable
         'password',
     ];
 
+    public function restaurant()
+    {
+        return $this->hasOne(Restaurant::class);
+    }
 }

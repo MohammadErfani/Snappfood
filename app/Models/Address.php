@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
+/*
+ * get all the owning of addressable models.
+ */
+    public function addressable()
+    {
+        return $this->morphTo();
+    }
 }
