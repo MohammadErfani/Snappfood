@@ -15,4 +15,8 @@ class FoodCategory extends Model
     {
         return $this->belongsToMany(Food::class);
     }
+    public function parent()
+    {
+        return $this->belongsTo(FoodCategory::class, 'parent_category');
+    }
 }

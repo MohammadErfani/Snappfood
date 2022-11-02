@@ -54,6 +54,11 @@ class RestaurantController extends Controller
             'salesman_id' => Auth::guard('salesman')->id()
         ]);
         $restaurant->restaurantCategories()->attach($request->input('restaurantCategory'));
+        foreach($restaurant->restaurantCategories as $category){
+            if (isset($category->parent->id)&&!in_array($category->parent->id,$request->restaurantCategory)){
+                $restaurant->restaurantCategories()->attach($category->parent->id);
+            }
+        }
         return redirect()->route('restaurant.dashboard');
     }
 

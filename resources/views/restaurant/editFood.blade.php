@@ -63,7 +63,6 @@
                 >
                     Food Categories
                 </label>
-                <div class="flex">
                     @foreach($foodCategories as $foodCategory)
                         <div class="flex items-center mb-4 mr-4 gap-0.5">
                             <input id="foodCategory_{{ $foodCategory->id }}"
@@ -76,11 +75,10 @@
                                 {{ $food->foodCategories()->where('food_category_id',$foodCategory->id)->get()->isNotEmpty() ? 'checked' : '' }}
                             >
                             <label for="food_{{ $foodCategory->id }}"
-                                   class="ml-2 text-xl font-medium text-gray-900 dark:text-gray-300">{{ $foodCategory->name }}</label>
+                                   class="ml-2 text-xl w-36 font-medium text-gray-900 dark:text-gray-300">{{ $foodCategory->name }}</label>
                             <img src="{{asset($foodCategory->picture)}}" class="w-28" alt="Doesn't have Picture">
                         </div>
                     @endforeach
-                </div>
                 <div class="mb-7">
                     <img src="{{asset($food->picture)}}" class="w-56 text-xs" alt="Doesn't have Picture">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="file_input">Upload Food Picture</label>

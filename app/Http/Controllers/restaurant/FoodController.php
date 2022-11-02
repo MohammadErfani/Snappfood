@@ -54,6 +54,12 @@ class FoodController extends Controller
             'restaurant_id' => Auth::guard('salesman')->user()->restaurant->id
         ]);
         $food->foodCategories()->attach($request->input('foodCategory'));
+            ;
+        foreach($food->foodCategories as $category){
+            if (isset($category->parent->id)&&!in_array($category->parent->id,$request->foodCategory)){
+                $food->foodCategories()->attach($category->parent->id);
+            }
+        }
         return redirect()->route('restaurant.food.index');
     }
 

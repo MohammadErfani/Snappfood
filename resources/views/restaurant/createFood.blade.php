@@ -65,9 +65,9 @@
                 >
                     Food Categories
                 </label>
-                <div class="flex">
+{{--                <div class="flex">--}}
                     @foreach($foodCategories as $foodCategory)
-                        <div class="flex items-center mb-4 mr-4 gap-0.5">
+                        <div class="flex items-center mb-4  ">
                             <input id="foodCategory_{{ $foodCategory->id }}"
                                    type="checkbox"
                                    value="{{ $foodCategory->id }}"
@@ -78,11 +78,11 @@
                                 {{ in_array($foodCategory->id , old('restaurantCategory') ?? []) ? 'checked' : '' }}
                             >
                             <label for="foodCategory_{{ $foodCategory->id }}"
-                                   class="ml-2 text-xl font-medium text-gray-900 dark:text-gray-300">{{ $foodCategory->name }}</label>
-                            <img src="{{asset($foodCategory->picture)}}" class="w-28 text-xs" alt="Doesn't have Picture">
+                                   class="ml-2 text-xl font-medium text-gray-900 dark:text-gray-300 w-36">{{ $foodCategory->name }}</label>
+                            <img src="{{asset($foodCategory->picture)}}" class="w-28 text-xs " alt="Doesn't have Picture">
                         </div>
                     @endforeach
-                </div>
+{{--                </div>--}}
                 <div class="mb-5">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="file_input">Upload Food Picture</label>
                     <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help"  type="file" name="picture">
@@ -92,7 +92,7 @@
                     <button
                         class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
                     >
-                        Create Restaurant
+                        Create Food
                     </button>
                 </div>
             </form>

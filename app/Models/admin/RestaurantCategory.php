@@ -9,10 +9,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RestaurantCategory extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $fillable = ['name','picture','parent_category'];
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = ['name', 'picture', 'parent_category'];
+
     public function restaurants()
     {
         return $this->belongsToMany(Restaurant::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(RestaurantCategory::class, 'parent_category');
     }
 }
