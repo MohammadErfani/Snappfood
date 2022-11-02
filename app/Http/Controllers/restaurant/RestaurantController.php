@@ -93,7 +93,7 @@ class RestaurantController extends Controller
         $restaurant = Auth::guard('salesman')->user()->restaurant;
 
         if ($request->file('picture') !== null) {
-            $picturePath = $request->file('picture')->store('uploads/restaurantCategories');
+            $picturePath = $request->file('picture')->store('uploads/restaurants');
             $restaurant->update(['picture' => $picturePath]);
         }
         $restaurant->update([

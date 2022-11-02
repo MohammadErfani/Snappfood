@@ -6,7 +6,7 @@
     </x-slot>
     <div class="flex items-center justify-center p-12">
         <div class="mx-auto w-full max-w-[550px] bg-white">
-            <form method="POST" action="{{route('restaurant.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('restaurant.update')}}" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="mb-5">

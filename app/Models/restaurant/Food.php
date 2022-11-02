@@ -8,11 +8,12 @@ use App\Models\FoodOrder;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Food extends Model
 {
-    use HasFactory;
-
+    use HasFactory,SoftDeletes;
+    protected $fillable = ['name','price','picture','material','restaurant_id'];
     public function foodCategories()
     {
         return $this->belongsToMany(FoodCategory::class);

@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('material')->nullable();
             $table->bigInteger('price');
-            $table->string('picture');
+            $table->string('picture')->nullable();
+            $table->unsignedBigInteger('restaurant_id');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->softDeletes();
             $table->timestamps();
         });
