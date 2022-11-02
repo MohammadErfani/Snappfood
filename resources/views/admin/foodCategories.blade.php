@@ -20,7 +20,7 @@
 
                 {{--                <a href="{{route('music.edit',$music->id)}}">--}}
                 <td class="py-4 px-6"><a href="{{route('admin.foodCategory.edit',$foodCategory->id)}}">
-                        <img src="{{asset($foodCategory->picture)}}" class="w-56" alt=""></a></td>
+                        <img src="{{asset($foodCategory->picture)}}" class="w-56" alt="Doesn't have Picture"></a></td>
                 <td class="py-4 px-6 text-xl"><a
                         href="{{route('admin.foodCategory.edit',$foodCategory->id)}}">{{$foodCategory->name}}</a></td>
                 <td class="py-4 px-6">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\admin\FoodCategory;
+use App\Models\restaurant\Food;
 use Illuminate\Http\Request;
 
 class FoodCategoryController extends Controller
@@ -52,38 +53,34 @@ class FoodCategoryController extends Controller
         return redirect()->route('admin.foodCategory.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *@return \Illuminate\View\View
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *@return \Illuminate\View\View
+
      */
     public function edit($id)
     {
-        //
+        return view('admin.editFoodCategory',['foodCategory'=>FoodCategory::find($id),'parentCategories'=>FoodCategory::all()]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \app\Http\Requests\CategoryRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        if($request->file('picture')!== null){
+            $picturePath = $request->file('picture')->store('uploads/foodCategories');
+            FoodCategory::where('id',$id)->update(['picture'=>$picturePath]);
+        }
+        FoodCategory::where('id',$id)->update(['name'=>$request->name,'parent_category'=>$request->parentCategory]);
+        return redirect()->route('admin.foodCategory.index');
     }
 
     /**

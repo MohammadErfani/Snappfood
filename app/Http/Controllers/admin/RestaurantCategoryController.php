@@ -54,37 +54,32 @@ class RestaurantCategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        return view('admin.editFoodCategory',['foodCategory'=>RestaurantCategory::find($id),'parentCategories'=>RestaurantCategory::all()]);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \app\Http\Requests\CategoryRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        if($request->file('picture')!== null){
+            $picturePath = $request->file('picture')->store('uploads/restaurantCategories');
+            RestaurantCategory::where('id',$id)->update(['picture'=>$picturePath]);
+        }
+        RestaurantCategory::where('id',$id)->update(['name'=>$request->name,'parent_category'=>$request->parentCategory]);
+        return redirect()->route('admin.restaurantCategory.index');
     }
 
     /**

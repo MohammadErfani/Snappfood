@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('picture')->nullable();
-            $table->unsignedBigInteger('parent_category')->nullable();
-            $table->foreign('parent_category')->references('id')->on('restaurant_categories');
+            $table->unsignedBigInteger('parent_category')->unsigned()->nullable();
+            $table->foreign('parent_category')->references('id')->on('restaurant_categories')->onDelete('set null');
             $table->softDeletes();
             $table->timestamps();
         });
