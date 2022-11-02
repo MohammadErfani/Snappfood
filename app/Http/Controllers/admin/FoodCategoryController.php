@@ -39,7 +39,6 @@ class FoodCategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-//        dd($request->parentCategory);
         if ($request->file('picture')===null){
             $picturePath = null;
         }else {
@@ -91,10 +90,12 @@ class FoodCategoryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        FoodCategory::find($id)->delete();
+        return redirect()->route('admin.foodCategory.index');
+
     }
 }
