@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models\admin;
 
 use App\Models\restaurant\Food;

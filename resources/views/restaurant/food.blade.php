@@ -8,9 +8,11 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="py-3 px-6 text-xl">Picture</th>
-            <th scope="col" class="py-3 px-6 text-xl">Food Name</th>
-            <th scope="col" class="py-3 px-6 text-xl">Food Material</th>
-            <th scope="col" class="py-3 px-6 text-xl">Food Price</th>
+            <th scope="col" class="py-3 px-6 text-xl"> Name</th>
+            <th scope="col" class="py-3 px-6 text-xl"> Material</th>
+            <th scope="col" class="py-3 px-6 text-xl">Original Price</th>
+            <th scope="col" class="py-3 px-6 text-xl">Food Discount</th>
+
 
         </tr>
         </thead>
@@ -27,6 +29,8 @@
                         href="{{route('restaurant.food.edit',$food->id)}}">{{$food->material}}</a></td>
                 <td class="py-4 px-6 text-xl"><a
                         href="{{route('restaurant.food.edit',$food->id)}}">{{$food->price}}</a></td>
+                <td class="py-4 px-6 text-xl"><a
+                        href="{{route('restaurant.food.edit',$food->id)}}">{{$food->discount?$food->discount->title:"Doesn't have Discount"}}</a></td>
                 <td class="py-4 px-6">
                     <form action="{{route('restaurant.food.destroy',$food->id)}}" method="post">
                         @csrf

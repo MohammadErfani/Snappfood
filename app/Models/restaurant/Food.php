@@ -4,6 +4,7 @@ namespace App\Models\restaurant;
 
 use App\Models\admin\FoodCategory;
 use App\Models\Comment;
+use App\Models\Discount;
 use App\Models\FoodOrder;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Food extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ['name','price','picture','material','restaurant_id'];
+    protected $fillable = ['name','price','picture','material','restaurant_id','discount_id'];
     public function foodCategories()
     {
         return $this->belongsToMany(FoodCategory::class);
@@ -29,5 +30,10 @@ class Food extends Model
     }
     public function comments(){
         return $this->hasManyThrough(Comment::class,FoodOrder::class,'food_id','order_id','id','order_id');
+    }
+
+    public function discount()
+    {
+        return $this->belongsTo(Discount::class);
     }
 }

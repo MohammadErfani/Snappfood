@@ -5,6 +5,7 @@ namespace App\Http\Controllers\restaurant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FoodRequest;
 use App\Models\admin\FoodCategory;
+use App\Models\Discount;
 use App\Models\restaurant\Food;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -84,7 +85,8 @@ class FoodController extends Controller
     {
         $food = Food::find($id)->first();
         $foodCategories = FoodCategory::all();
-        return view('restaurant.editFood',compact('food','foodCategories'));
+        $discounts = Discount::all();
+        return view('restaurant.editFood',compact('food','foodCategories','discounts'));
     }
 
     /**
@@ -101,10 +103,12 @@ class FoodController extends Controller
             $picturePath = $request->file('picture')->store('uploads/foods');
             $food->update(['picture' => $picturePath]);
         }
+
         $food->update([
             'name' => $request->name,
             'price' => $request->price,
-            'material' => $request->material
+            'material' => $request->material,
+            'discount_id'=>$request->discount
         ]);
         $categories = $request->foodCategory;
         foreach ($food->foodCategories as $category) {
