@@ -1,5 +1,6 @@
 <?php
 // Admin Routes place here except for authentication . That was in auth
+use App\Http\Controllers\admin\DiscountController;
 use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\RestaurantCategoryController;
 use Illuminate\Support\Facades\Route;
@@ -10,4 +11,5 @@ Route::prefix('/admin')->name('admin.')->middleware(['isAdmin'])->group(function
     })->name('dashboard');
     Route::resource('/foodCategory',FoodCategoryController::class);
     Route::resource('/restaurantCategory',RestaurantCategoryController::class);
+    Route::resource('/discount',DiscountController::class);
 });

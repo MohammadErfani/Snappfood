@@ -71,9 +71,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{route('admin.discount.create')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                             <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت تخفیف</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.discount.index')}}"
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">تمام تخفیف ها</span>
                         </a>
                     </li>
                     <li>
