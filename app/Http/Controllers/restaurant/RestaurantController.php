@@ -109,6 +109,7 @@ class RestaurantController extends Controller
             'phone' => $request->phone,
             'bank_account' => $request->bankAccount,
         ]);
+        $restaurant->address()->update(['address'=>$request->address,'latitude'=>$request->lat,'longitude'=>$request->lng]);
         $categories = $request->restaurantCategory;
         foreach ($restaurant->restaurantCategories as $category) {
             if (in_array($category->id, $categories)) {
