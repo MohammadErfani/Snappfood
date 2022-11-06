@@ -22,7 +22,13 @@
 
                 {{--                <a href="{{route('music.edit',$music->id)}}">--}}
                 <td class="py-4 px-6"><a href="{{route('restaurant.food.edit',$food->id)}}">
-                        <img src="{{asset($food->picture)}}" class="w-56" alt="Doesn't have Picture"></a></td>
+                        @if($food->picture)
+                            <img src="{{asset($food->picture)}}" class="w-28" alt="">
+                        @else
+                            <img src="{{asset('storage/images/food-category-icon.png')}}" class="w-28"
+                                 alt="Doesn't have Picture">
+                        @endif
+                    </a></td>
                 <td class="py-4 px-6 text-xl"><a
                         href="{{route('restaurant.food.edit',$food->id)}}">{{$food->name}}</a></td>
                 <td class="py-4 px-6 text-xl"><a

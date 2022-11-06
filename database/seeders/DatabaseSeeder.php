@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,10 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+//         \App\Models\User::factory()->create([
+//             'name' => 'Test User',
+//             'email' => 'test@example.com',
+//         ]);
         $disounts = [
             ['title' => 'Twenty percent', 'percentage' => 0.2],
             ['title' => 'Tenth percent', 'percentage' => 0.1],
@@ -31,5 +32,21 @@ class DatabaseSeeder extends Seeder
         foreach ($disounts as $discount) {
             DB::table('discounts')->insert($discount);
         }
+        $foodCategories = [
+            ['name'=>'fast food'],
+            ['name'=>'pizza','parent_category'=>1],
+            ['name'=>'sandwich','parent_category'=>1],
+            ['name'=>'Iranian'],
+            ['name'=>'kabab','parent_category'=>4],
+        ];
+        foreach ($foodCategories as $foodCategory){
+            DB::table('food_categories')->insert($foodCategory);
+            DB::table('restaurant_categories')->insert($foodCategory);
+        }
+        DB::table('admins')->insert([
+           'name'=>'mohammad',
+           'email'=>'moerfani78@gmail.com',
+           'password'=>Hash::make('1234')
+        ]);
     }
 }

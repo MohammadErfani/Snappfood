@@ -18,9 +18,13 @@
         @forelse($restaurantCategories as $restaurantCategory )
             <tr>
 
-                {{--                <a href="{{route('music.edit',$music->id)}}">--}}
                 <td class="py-4 px-6"><a href="{{route('admin.restaurantCategory.edit',$restaurantCategory->id)}}">
-                        <img src="{{asset($restaurantCategory->picture)}}" class="w-56" alt=""></a></td>
+                        @if($restaurantCategory->picture)
+                            <img src="{{asset($restaurantCategory->picture)}}" class="w-28" alt="">
+                        @else
+                            <img src="{{asset('storage/images/restaurant-category-icon.png')}}" class="w-28" alt="Doesn't have Picture">
+                        @endif
+                    </a></td>
                 <td class="py-4 px-6 text-xl"><a
                         href="{{route('admin.restaurantCategory.edit',$restaurantCategory->id)}}">
                         {{$restaurantCategory->name}}</a></td>

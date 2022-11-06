@@ -21,6 +21,8 @@
         src="https://code.jquery.com/jquery-3.6.1.js"
         integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
         crossorigin="anonymous"></script>
+    <!-- flowbite cdn -->
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen ">
@@ -88,5 +90,6 @@
 
     </div>
 </div>
+<script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 </body>
 </html>

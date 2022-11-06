@@ -56,10 +56,12 @@ class RestaurantController extends Controller
         ]);
         $address = new Address(['address'=>$request->address,'latitude'=>$request->lat,'longitude'=>$request->lng]);
         $restaurant->address()->save($address);
-        $restaurant->restaurantCategories()->attach($request->input('restaurantCategory'));
+        $a =$request->input('restaurantCategory') ;
+        $restaurant->restaurantCategories()->attach($a);
         foreach($restaurant->restaurantCategories as $category){
-            if (isset($category->parent->id)&&!in_array($category->parent->id,$request->restaurantCategory)){
+            if (isset($category->parent->id)&&!in_array($category->parent->id,$a)){
                 $restaurant->restaurantCategories()->attach($category->parent->id);
+                $a[] = $category->parent->id;
             }
         }
         return redirect()->route('restaurant.dashboard');
@@ -72,9 +74,9 @@ class RestaurantController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return Auth::guard('salesman')->user()->restaurant;
     }
 
     /**
@@ -111,17 +113,7 @@ class RestaurantController extends Controller
         ]);
         $restaurant->address()->update(['address'=>$request->address,'latitude'=>$request->lat,'longitude'=>$request->lng]);
         $categories = $request->restaurantCategory;
-        foreach ($restaurant->restaurantCategories as $category) {
-            if (in_array($category->id, $categories)) {
-                array_splice($categories, array_search($category->id,$categories), 1);
-            } else {
-                $restaurant->restaurantCategories()->detach($category->id);
-            }
-        }
-
-        if (!empty($categories)){
-            $restaurant->restaurantCategories()->attach($categories);
-        }
+        $restaurant->restaurantCategories()->sync($categories);
         return redirect()->route('restaurant.dashboard');
     }
 
