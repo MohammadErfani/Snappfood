@@ -4,6 +4,7 @@ namespace App\Http\Controllers\restaurant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RestaurantRequest;
+use App\Models\Address;
 use App\Models\admin\RestaurantCategory;
 use App\Models\restaurant\Restaurant;
 use Illuminate\Http\RedirectResponse;
@@ -53,6 +54,8 @@ class RestaurantController extends Controller
             'picture' => $picturePath,
             'salesman_id' => Auth::guard('salesman')->id()
         ]);
+        $address = new Address(['address'=>$request->address,'latitude'=>$request->lat,'longitude'=>$request->lng]);
+        $restaurant->address()->save($address);
         $restaurant->restaurantCategories()->attach($request->input('restaurantCategory'));
         foreach($restaurant->restaurantCategories as $category){
             if (isset($category->parent->id)&&!in_array($category->parent->id,$request->restaurantCategory)){

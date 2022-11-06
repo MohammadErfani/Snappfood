@@ -11,6 +11,7 @@ class Address extends Model
 /*
  * get all the owning of addressable models.
  */
+    protected $fillable = ['address','latitude','longitude'];
     public function addressable()
     {
         return $this->morphTo();

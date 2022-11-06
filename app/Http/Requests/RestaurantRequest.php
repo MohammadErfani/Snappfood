@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\AddressRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RestaurantRequest extends FormRequest
@@ -28,7 +29,11 @@ class RestaurantRequest extends FormRequest
             'phone'=>'required',        //other validation doesn't add for faster add content with fake filler
             'bankAccount'=>'required',
             'restaurantCategory'=>'required',
-            'picture'=>'mimes:jpg,png|max:2048'
+            'picture'=>'mimes:jpg,png|max:2048',
+            'address'=>'required',
+            'lat'=>[new AddressRule()],
+            'lng'=>[new AddressRule()]
+
         ];
     }
 }

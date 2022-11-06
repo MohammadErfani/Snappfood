@@ -83,12 +83,33 @@
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPG,PNG(max:2MB)</p>
                 </div>
                 <div>
+                    <div class="mb-5">
+                        <label
+                            for="address"
+                            class="mb-3 block text-base font-medium text-[#07074D]"
+                        >
+                            Address
+                        </label>
+                        <input
+                            type="text"
+                            name="address"
+                            id="address"
+                            placeholder="Restaurant Address"
+                            value="{{old('address')}}"
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                        />
+                    </div>
+                <input type="text" id="lat" name="lat" hidden>
+                <input type="text" id="lng" name="lng" hidden>
+                <div id="map" style="width: 600px; height: 450px; background: #eee; border: 2px solid #aaa;" class="mb-5"></div>
                     <button
                         class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
                     >
                         Create Restaurant
                     </button>
                 </div>
+
+
             </form>
 
 
@@ -104,3 +125,30 @@
         </div>
     </div>
 </x-guest-layout>
+<script type="text/javascript">
+    var map = new L.Map('map', {
+        key: 'web.c21a0e8884b74d68b0a0c63b0ea29557',
+        maptype: 'dreamy',
+        poi: true,
+        traffic: false,
+        center: [35.699739, 51.338097],
+        zoom: 14
+    });
+    // var marker = L.marker([35.699739, 51.338097]).addTo(map);
+    var latInput = $("#lat");
+    var lngInput = $("#lng");
+    var theMarker = {};
+    function onMapClick(e) {
+        lat = e.latlng.lat;
+        lng = e.latlng.lng;
+        latInput.val(lat);
+        lngInput.val(lng);
+        if (theMarker != undefined) {
+            map.removeLayer(theMarker);
+        }
+
+        //Add a marker to show where you clicked.
+        theMarker = L.marker([lat,lng]).addTo(map);
+    }
+    map.on('click', onMapClick);
+</script>
