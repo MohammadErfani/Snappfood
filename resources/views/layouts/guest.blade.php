@@ -19,6 +19,8 @@
             crossorigin="anonymous"></script>
         <link href="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.css" rel="stylesheet" type="text/css">
         <script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
+        <!-- flowbite cdn -->
+        <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
     </head>
     <body>
     <nav>
@@ -51,11 +53,18 @@
                         <div class="hidden sm:ml-6 sm:block">
                             <div class="flex space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                                @if(!\Illuminate\Support\Facades\Auth::guard('admin')->check())
                                 <a href="{{route('admin.login')}}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Admin Login</a>
-                                @if(!\Illuminate\Support\Facades\Auth::guard('salesman')->check())
+                                <a href="{{route('admin.register')}}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Admin Register</a>
+                                @else
+                                    <a href="{{route('admin.dashboard')}}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Admin Dashboard</a>
+                                @endif
+                            @if(!\Illuminate\Support\Facades\Auth::guard('salesman')->check())
                                 <a href="{{route('salesman.login')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Salesman Login</a>
-
                                 <a href="{{route('salesman.register')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create New Salesman Account</a>
+                                @else
+                                    <a href="{{route('restaurant.dashboard')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Restaurant Dashboard</a>
+
                                 @endif
                                 <a href="{{route('login')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
                                 <a href="{{route('register')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register</a>
@@ -103,5 +112,6 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     </body>
 </html>

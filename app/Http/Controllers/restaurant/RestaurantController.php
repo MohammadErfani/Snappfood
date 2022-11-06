@@ -10,6 +10,7 @@ use App\Models\restaurant\Restaurant;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class RestaurantController extends Controller
@@ -31,6 +32,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
+        Gate::forUser(Auth::guard('salesman')->user())->authorize('create-restaurant');
         return view('restaurant.createRestaurant', ['restaurantCategories' => RestaurantCategory::all()]);
     }
 
@@ -42,6 +44,7 @@ class RestaurantController extends Controller
      */
     public function store(RestaurantRequest $request)
     {
+        Gate::forUser(Auth::guard('salesman')->user())->authorize('create-restaurant');
         if ($request->file('picture') === null) {
             $picturePath = null;
         } else {
