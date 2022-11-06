@@ -1,9 +1,27 @@
+
 <x-restaurant-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-2xl font-extrabold text-green-700 leading-tight">
             Restaurant Setting
         </h2>
     </x-slot>
+    @if($restaurant->is_open)
+        <form action="{{route('restaurant.status')}}" method="post">
+            @csrf
+            @method('patch')
+            <label for="status" class="rounded-md bg-blue-500 py-3 px-8 text-center text-base font-semibold text-white outline-none">Restaurant is Open</label>
+            <input type="text" id="status" name="status" value="0" hidden>
+            <button type="submit" class="hover:shadow-form mx-auto rounded-md bg-red-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">Click To Close</button>
+        </form>
+    @else
+    <form action="{{route('restaurant.status')}}" method="post">
+        @csrf
+        @method('patch')
+        <label for="status" class="rounded-md bg-blue-500 py-3 px-8 text-center text-base font-semibold text-white outline-none">Restaurant is close</label>
+        <input type="text" name="status" value="1" id="status" hidden>
+        <button type="submit" class="hover:shadow-form mx-auto rounded-md bg-green-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">Click To Open</button>
+    </form>
+    @endif
     <div class="flex items-center justify-center p-12">
         <div class="mx-auto w-full max-w-[550px] bg-white">
             <form method="POST" action="{{route('restaurant.update')}}" enctype="multipart/form-data">
