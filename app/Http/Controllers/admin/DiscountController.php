@@ -21,7 +21,7 @@ class DiscountController extends Controller
     {
         $discounts = Discount::all();
 
-        return view('admin.discounts',compact('discounts'));
+        return view('admin.discount.discounts',compact('discounts'));
 
     }
 
@@ -32,7 +32,7 @@ class DiscountController extends Controller
      */
     public function create()
     {
-        return view('admin.createDiscount');
+        return view('admin.discount.createDiscount');
     }
 
     /**
@@ -66,7 +66,7 @@ class DiscountController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.editDiscount',['discount'=>Discount::find($id)->first()]);
+        return view('admin.discount.editDiscount',['discount'=>Discount::find($id)->first()]);
     }
 
     /**

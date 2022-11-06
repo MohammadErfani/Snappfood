@@ -30,6 +30,7 @@ class SalesmanLoginController extends Controller
      */
     public function store(SalesmanLoginRequest $request)
     {
+        
         $request->authenticate();
 
         $request->session()->regenerate();

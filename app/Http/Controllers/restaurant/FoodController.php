@@ -21,7 +21,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        return view('restaurant.food', ['foods' => Food::all()]);
+        return view('restaurant.food.food', ['foods' => Food::all()]);
     }
 
     /**
@@ -31,7 +31,7 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('restaurant.createFood', ['foodCategories' => FoodCategory::all()]);
+        return view('restaurant.food.createFood', ['foodCategories' => FoodCategory::all()]);
     }
 
     /**
@@ -87,7 +87,7 @@ class FoodController extends Controller
         $food = Food::find($id)->first();
         $foodCategories = FoodCategory::all();
         $discounts = Discount::all();
-        return view('restaurant.editFood', compact('food', 'foodCategories', 'discounts'));
+        return view('restaurant.food.editFood', compact('food', 'foodCategories', 'discounts'));
     }
 
     /**

@@ -18,7 +18,7 @@ class RestaurantCategoryController extends Controller
     public function index()
     {
         $restaurantCategories = RestaurantCategory::all();
-        return view('admin.restaurantCategories',compact('restaurantCategories'));
+        return view('admin.restaurantCategory.restaurantCategories',compact('restaurantCategories'));
     }
 
     /**
@@ -29,7 +29,7 @@ class RestaurantCategoryController extends Controller
     public function create()
     {
         $restaurantCategories = RestaurantCategory::all();
-        return view('admin.createRestaurantCategory',compact('restaurantCategories'));
+        return view('admin.restaurantCategory.createRestaurantCategory',compact('restaurantCategories'));
     }
 
     /**
@@ -61,7 +61,7 @@ class RestaurantCategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.editFoodCategory',['foodCategory'=>RestaurantCategory::find($id),'parentCategories'=>RestaurantCategory::all()]);
+        return view('admin.restaurantCategory.editFoodCategory',['foodCategory'=>RestaurantCategory::find($id),'parentCategories'=>RestaurantCategory::all()]);
 
     }
 
