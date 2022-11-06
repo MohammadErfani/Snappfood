@@ -4,11 +4,10 @@ namespace App\Http\Controllers\restaurant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FoodRequest;
+use App\Models\admin\Discount;
 use App\Models\admin\FoodCategory;
-use App\Models\Discount;
 use App\Models\restaurant\Food;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 

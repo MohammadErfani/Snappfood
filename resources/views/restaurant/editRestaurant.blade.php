@@ -1,6 +1,6 @@
 <x-restaurant-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-center font-extrabold text-green-700 leading-tight">
+        <h2 class="font-semibold text-2xl font-extrabold text-green-700 leading-tight">
             Restaurant Setting
         </h2>
     </x-slot>
@@ -82,24 +82,32 @@
                         @foreach($restaurantCategories as $restaurantCategory)
                             <li>
                                 <div class="flex items-center">
-                                    <input value="{{$restaurantCategory->id}}" id="checkbox-item-1" type="checkbox" name="restaurantCategory[]" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                    <input value="{{$restaurantCategory->id}}" id="checkbox-item-1" type="checkbox"
+                                           name="restaurantCategory[]"
+                                           class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                         {{ $restaurant->restaurantCategories()->where('restaurant_category_id',$restaurantCategory->id)->get()->isNotEmpty() ? 'checked' : '' }}>
-                                    <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$restaurantCategory->name}}</label>
+                                    <label for="checkbox-item-1"
+                                           class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$restaurantCategory->name}}</label>
                                 </div>
                             </li>
 
                         @endforeach
                     </ul>
                 </div>
+@include('restaurant.schedule')
 
-                <div class="mb-7">
+                <div class="mb-7/">
                     @if($restaurant->picture)
                         <img src="{{asset($restaurant->picture)}}" class="w-28" alt="">
                     @else
-                        <img src="{{asset('storage/images/restaurant-category-icon.png')}}" class="w-28" alt="Doesn't have Picture">
+                        <img src="{{asset('storage/images/restaurant-category-icon.png')}}" class="w-28"
+                             alt="Doesn't have Picture">
                     @endif
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="file_input">Upload Restaurant Picture</label>
-                    <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help"  type="file" name="picture">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="file_input">Upload
+                        Restaurant Picture</label>
+                    <input
+                        class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        aria-describedby="file_input_help" type="file" name="picture">
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPG,PNG(max:2MB)</p>
                 </div>
                 <div class="mb-5">
@@ -120,7 +128,8 @@
                 </div>
                 <input type="text" id="lat" name="lat" value="{{$restaurant->address->latitude}}" hidden>
                 <input type="text" id="lng" name="lng" value="{{$restaurant->address->longitude}}" hidden>
-                <div id="map" style="width: 600px; height: 450px; background: #eee; border: 2px solid #aaa;" class="mb-5"></div>
+                <div id="map" style="width: 600px; height: 450px; background: #eee; border: 2px solid #aaa;"
+                     class="mb-5"></div>
                 <div>
                     <button
                         class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
@@ -150,6 +159,7 @@
         </div>
     </div>
 </x-restaurant-layout>
+{{-- Map--}}
 <script type="text/javascript">
     var latInput = $("#lat");
     var lngInput = $("#lng");
@@ -158,12 +168,13 @@
         maptype: 'dreamy',
         poi: true,
         traffic: false,
-        center: [latInput.val(),lngInput.val()],
+        center: [latInput.val(), lngInput.val()],
         zoom: 14
     });
     // var marker = L.marker([35.699739, 51.338097]).addTo(map);
 
-    var theMarker = L.marker([latInput.val(),lngInput.val()]).addTo(map);
+    var theMarker = L.marker([latInput.val(), lngInput.val()]).addTo(map);
+
     function onMapClick(e) {
         lat = e.latlng.lat;
         lng = e.latlng.lng;
@@ -174,7 +185,9 @@
         }
 
         //Add a marker to show where you clicked.
-        theMarker = L.marker([lat,lng]).addTo(map);
+        theMarker = L.marker([lat, lng]).addTo(map);
     }
+
     map.on('click', onMapClick);
 </script>
+

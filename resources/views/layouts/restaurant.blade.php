@@ -30,7 +30,7 @@
 
 <!-- Page Heading -->
     @if (isset($header))
-        <header class="bg-white shadow">
+        <header class="bg-white shadow flex ">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>
@@ -83,7 +83,12 @@
                     </li>
 
                 </ul>
-                <div class="h-28"></div>
+
+                @if($a = \Illuminate\Support\Facades\Auth::guard('salesman')->user()->restaurant->picture)
+                    <img src="{{asset($a)}}" class="w-52    " alt="da">
+                @else
+                    <img src="{{asset('storage/images/restaurant-category-icon.png')}}" alt="na">
+                @endif
             </div>
         </aside>
 

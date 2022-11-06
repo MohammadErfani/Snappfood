@@ -5,9 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DiscountRequest;
 use App\Http\Resources\DiscountResource;
-use App\Models\Discount;
+use App\Models\admin\Discount;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DiscountController extends Controller

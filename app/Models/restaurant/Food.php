@@ -2,9 +2,9 @@
 
 namespace App\Models\restaurant;
 
+use App\Models\admin\Discount;
 use App\Models\admin\FoodCategory;
 use App\Models\Comment;
-use App\Models\Discount;
 use App\Models\FoodOrder;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

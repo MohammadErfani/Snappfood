@@ -15,6 +15,7 @@ class Restaurant extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'phone', 'bank_account', 'picture', 'salesman_id'];
+    protected $with=['address','schedules'];
 
     public function restaurantCategories()
     {
@@ -29,6 +30,10 @@ class Restaurant extends Model
         return $this->morphOne(Address::class, 'addressable');
     }
 
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
     /*
      * return the salesman
      */
@@ -50,5 +55,40 @@ class Restaurant extends Model
     public function foods()
     {
         return $this->hasMany(Food::class);
+    }
+
+
+    public function saveSchedules(array $times, bool $all = true)
+    {
+        $schedules = [];
+        if ($all) {
+            foreach(Schedule::WEEKDAY as $key=>$value) {
+                $schedules[] = ['weekday' => $value, 'open_hour' => $times['open'], 'close_hour' => $times['close']];
+            }
+        }else{
+            $open = $times[0];
+            $close = $times[1];
+            foreach(Schedule::WEEKDAY as $key=>$value) {
+                $schedules[] = ['weekday' => $value, 'open_hour' => $open[$key], 'close_hour' => $close[$key]];
+            }
+        }
+
+        foreach ($schedules as $schedule) {
+            $this->schedules()->save(new Schedule($schedule));
+        }
+    }
+    public function updateSchedules(array $times, bool $all = true)
+    {
+        if ($all) {
+            foreach(Schedule::WEEKDAY as $key=>$value) {
+                $this->schedules()->where('weekday',$value)->update(['open_hour'=>$times['open'],'close_hour'=>$times['close']]);
+            }
+        }else{
+            $open = $times[0];
+            $close = $times[1];
+            foreach(Schedule::WEEKDAY as $key=>$value) {
+                $this->schedules()->where('weekday',$value)->update([ 'open_hour' => $open[$key], 'close_hour' => $close[$key]]);
+            }
+        }
     }
 }
