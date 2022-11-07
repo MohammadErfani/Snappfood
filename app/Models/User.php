@@ -39,7 +39,7 @@ class User extends Authenticatable
         'updated_at',
         'email_verified_at'
     ];
-
+    protected $with = ['addresses'];
     /**
      * The attributes that should be cast.
      *

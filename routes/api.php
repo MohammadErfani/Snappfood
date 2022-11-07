@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\user\auth\AddressController;
 use App\Http\Controllers\user\auth\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +24,17 @@ Route::post('/user/register', [UserController::class, 'store'])->name('user.regi
 Route::post('/user/login', [UserController::class, 'login'])->name('user.login');
 
 Route::prefix('user')->name('user.')->middleware('auth:sanctum')->group(function () {
-    Route::get('/show',[UserController::class,'show'])->name('show');
+    Route::get('/show', [UserController::class, 'show'])->name('show');
     Route::put('/edit', [UserController::class, 'update'])->name('update');
-    Route::delete('/delete',[UserController::class,'destroy'])->name('delete');
-    Route::post('/logout',[UserController::class,'logout'])->name('logout');
+    Route::delete('/delete', [UserController::class, 'destroy'])->name('delete');
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+});
+Route::prefix('addresses')->name('address.')->middleware('auth:sanctum')->group(function () {
+    Route::get('/',[AddressController::class,'index'])->name('index');
+    Route::post('/',[AddressController::class,'store'])->name('store');
+    Route::get('/{address}',[AddressController::class,'show'])->name('show');
+    Route::put('/{address}',[AddressController::class,'update'])->name('update');
+    Route::delete('/{address}',[AddressController::class,'destroy'])->name('delete');
+    Route::patch('/{address}/setCurrent',[AddressController::class,'setCurrent'])->name('setCurrent');
 });
 //Route::resource('user',UserController::class);
