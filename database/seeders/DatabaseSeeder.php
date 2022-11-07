@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\restaurant\Restaurant;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -32,16 +33,16 @@ class DatabaseSeeder extends Seeder
         foreach ($disounts as $discount) {
             DB::table('discounts')->insert($discount);
         }
-        $foodCategories = [
+        $categories = [
             ['name'=>'fast food'],
             ['name'=>'pizza','parent_category'=>1],
             ['name'=>'sandwich','parent_category'=>1],
             ['name'=>'Iranian'],
             ['name'=>'kabab','parent_category'=>4],
         ];
-        foreach ($foodCategories as $foodCategory){
-            DB::table('food_categories')->insert($foodCategory);
-            DB::table('restaurant_categories')->insert($foodCategory);
+        foreach ($categories as $category){
+            DB::table('food_categories')->insert($category);
+            DB::table('restaurant_categories')->insert($category);
         }
         DB::table('admins')->insert([
            'name'=>'mohammad',
