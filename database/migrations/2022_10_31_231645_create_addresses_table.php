@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('address');
             $table->string('latitude');
             $table->string('longitude');
+            $table->boolean('is_current')->nullable()->default(null);
             $table->softDeletes();
 
             $table->timestamps();
