@@ -144,7 +144,6 @@ class RestaurantController extends Controller
 
     public function changeStatus(Request $request)
     {
-//        dd($request->input('status'));
         Auth::guard('salesman')->user()->restaurant->update(['is_open'=>$request->status=='0'?false:true]);
         return redirect()->route('restaurant.edit');
     }

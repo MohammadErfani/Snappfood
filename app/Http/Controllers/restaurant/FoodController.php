@@ -8,6 +8,7 @@ use App\Models\admin\Discount;
 use App\Models\admin\FoodCategory;
 use App\Models\restaurant\Food;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -67,23 +68,22 @@ class FoodController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\restaurant\Food  $food
+     * @return Food
      */
-    public function show($id)
+    public function show(Food $food)
     {
-        //
+        return $food;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  \App\Models\restaurant\Food  $food
      * @return View
      */
-    public function edit($id)
+    public function edit(Food $food)
     {
-        $food = Food::find($id)->first();
         $foodCategories = FoodCategory::all();
         $discounts = Discount::all();
         return view('restaurant.food.editFood', compact('food', 'foodCategories', 'discounts'));
@@ -92,13 +92,12 @@ class FoodController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param FoodRequest $request
-     * @param int $id
+     * @param  FoodRequest  $request
+     * @param  \App\Models\restaurant\Food  $food
      * @return RedirectResponse
      */
-    public function update(FoodRequest $request, $id)
+    public function update(FoodRequest $request, Food $food)
     {
-        $food = Food::find($id)->first();
         if ($request->file('picture') !== null) {
             $picturePath = $request->file('picture')->store('uploads/foods');
             $food->update(['picture' => $picturePath]);
@@ -113,18 +112,18 @@ class FoodController extends Controller
         $categories = $request->foodCategory;
         $food->foodCategories()->sync($categories);
         return redirect()->route('restaurant.food.index');
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  \App\Models\restaurant\Food  $food
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Food $food)
     {
-        Food::find($id)->delete();
+        $food->delete();
         return redirect()->route('restaurant.food.index');
+
     }
 }
