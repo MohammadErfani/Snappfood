@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\user\auth;
+namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddressRequest;
 use App\Models\Address;
-use Illuminate\Http\Request;
+use function auth;
+use function response;
 
 class AddressController extends Controller
 {
