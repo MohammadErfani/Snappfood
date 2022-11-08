@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\user\AddressController;
 use App\Http\Controllers\user\auth\UserController;
+use App\Http\Controllers\user\GetRestaurantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+// user crud routs
 Route::post('/user/register', [UserController::class, 'store'])->name('user.register');
 Route::post('/user/login', [UserController::class, 'login'])->name('user.login');
 
@@ -29,6 +30,7 @@ Route::prefix('user')->name('user.')->middleware('auth:sanctum')->group(function
     Route::delete('/delete', [UserController::class, 'destroy'])->name('delete');
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
+// resource routes for user address
 Route::prefix('addresses')->name('address.')->middleware('auth:sanctum')->group(function () {
     Route::get('/',[AddressController::class,'index'])->name('index');
     Route::post('/',[AddressController::class,'store'])->name('store');
@@ -37,4 +39,13 @@ Route::prefix('addresses')->name('address.')->middleware('auth:sanctum')->group(
     Route::delete('/{address}',[AddressController::class,'destroy'])->name('delete');
     Route::patch('/{address}/setCurrent',[AddressController::class,'setCurrent'])->name('setCurrent');
 });
-//Route::resource('user',UserController::class);
+
+// get restaurant routes
+Route::prefix('/restaurants')->name('restaurants.')->middleware('auth:sanctum')->group(function (){
+    Route::get('/',[GetRestaurantController::class,'index'])->name('index');
+    Route::get('/{restaurant}',[GetRestaurantController::class,'show'])->name('show');
+    Route::get('/{restaurant}/foods',[GetRestaurantController::class,'foods'])->name('foods');
+});
+    Route::get('/foods',function (){
+       return \App\Models\restaurant\Food::find(1)->;
+    });
