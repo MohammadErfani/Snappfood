@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RestaurantCollection;
+use App\Http\Resources\RestaurantFoodResource;
 use App\Http\Resources\RestaurantResource;
 use App\Models\restaurant\Restaurant;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class GetRestaurantController extends Controller
     /**
      * Display a listing of the Restaurants.
      *
-//     * @return \Illuminate\Http\Response
+     * //     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -24,8 +24,8 @@ class GetRestaurantController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\restaurant\Restaurant  $restaurant
-//     * @return \Illuminate\Http\Response
+     * @param \App\Models\restaurant\Restaurant $restaurant
+     * //     * @return \Illuminate\Http\Response
      */
     public function show(Restaurant $restaurant)
     {
@@ -34,6 +34,6 @@ class GetRestaurantController extends Controller
 
     public function foods(Restaurant $restaurant)
     {
-        return $restaurant->foodCategories;
+        return RestaurantFoodResource::restaurantId($restaurant->id)::collection($restaurant->foodCategories);
     }
 }

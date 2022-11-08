@@ -5,8 +5,8 @@ namespace App\Models\restaurant;
 use App\Models\admin\Discount;
 use App\Models\admin\FoodCategory;
 use App\Models\Comment;
-use App\Models\FoodOrder;
 use App\Models\Order;
+use App\Models\Pivots\FoodOrder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,7 +29,8 @@ class Food extends Model
         return $this->belongsToMany(Order::class)->using(FoodOrder::class);
     }
     public function comments(){
-        return $this->hasManyThrough(Comment::class,FoodOrder::class,'food_id','order_id','id','order_id');
+        return $this->hasManyThrough(Comment::class,FoodOrder::class,
+                                    'food_id','order_id','id','order_id');
     }
 
     public function discount()

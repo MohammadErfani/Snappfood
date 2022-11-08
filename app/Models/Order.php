@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Pivots\FoodOrder;
 use App\Models\restaurant\Restaurant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

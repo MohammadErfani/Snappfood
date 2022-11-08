@@ -56,6 +56,12 @@ class Restaurant extends Model
     {
         return $this->hasMany(Food::class);
     }
+    public function foodCategories()
+    {
+        return $this->foods()->join('food_food_category','food.id','=','food_food_category.food_id')
+            ->join('food_categories','food_food_category.food_category_id','=','food_categories.id')
+            ->select('food_categories.*')->distinct();
+    }
 
 
     public function saveSchedules(array $times, bool $all = true)

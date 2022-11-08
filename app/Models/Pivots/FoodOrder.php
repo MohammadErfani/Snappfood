@@ -3,8 +3,10 @@
  * source: https://darkghosthunter.medium.com/laravel-has-many-through-pivot-elegantly-958dd096db
  * reason for these pivot is to make relation between foods and comments
  */
-namespace App\Models;
+namespace App\Models\Pivots;
 
+use App\Models\Comment;
+use App\Models\Order;
 use App\Models\restaurant\Food;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
