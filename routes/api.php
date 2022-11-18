@@ -46,4 +46,5 @@ Route::prefix('/restaurants')->name('restaurants.')->middleware('auth:sanctum')-
     Route::get('/{restaurant}',[GetRestaurantController::class,'show'])->name('show');
     Route::get('/{restaurant}/foods',[GetRestaurantController::class,'foods'])->name('foods');
     Route::get('/{restaurant}/foods/category/{foodCategory}',[GetRestaurantController::class,'categoryFoods'])->name('categoryFoods');
+    Route::get('/{restaurant}/foods/{food}',[GetRestaurantController::class,'showFood'])->name('showFoods');
 });
