@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\user\auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\Auth\UserRequest;
+use App\Http\Requests\Auth\UserUpdateRequest;
 use App\Models\User;
 use App\Rules\PhoneRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
@@ -60,17 +60,12 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param UserUpdateRequest $request
      * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UserUpdateRequest $request)
     {
-        $request->validate(
-            ['email' => ['unique:users', 'email'],
-                'phone' => ['unique:users', new PhoneRule()]
-            ]
-        );
         auth()->user()->update($request->all());
         return \response(['msg' => 'your user data updated'], 201);
     }
@@ -102,8 +97,7 @@ class UserController extends Controller
                 'msg' => 'incorrect username or password'
             ], 401);
         }
-
-        $token = $user->createToken('apiToken')->plainTextToken;
+        $token = $user->createToken($user->id.'Token')->plainTextToken;
 
         $res = [
             'user' => $user,
