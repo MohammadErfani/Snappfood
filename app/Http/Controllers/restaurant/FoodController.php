@@ -21,7 +21,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        return view('restaurant.food.food', ['foods' => Food::all()]);
+        return view('restaurant.food.food', ['foods' => Food::all()->where('restaurant_id',Auth::guard('salesman')->user()->restaurant->id)]);
     }
 
     /**
