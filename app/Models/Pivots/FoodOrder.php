@@ -3,6 +3,7 @@
  * source: https://darkghosthunter.medium.com/laravel-has-many-through-pivot-elegantly-958dd096db
  * reason for these pivot is to make relation between foods and comments
  */
+
 namespace App\Models\Pivots;
 
 use App\Models\Comment;
@@ -12,7 +13,11 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class FoodOrder extends Pivot
 {
-    public function food(){
+    protected $fillable = ['order_id', 'food_id', 'count'];
+    protected $table = 'food_order';
+
+    public function food()
+    {
         return $this->belongsTo(Food::class);
     }
 
@@ -23,6 +28,6 @@ class FoodOrder extends Pivot
 
     public function comments()
     {
-        return $this->hasManyThrough(Comment::class,Order::class);
+        return $this->hasManyThrough(Comment::class, Order::class);
     }
 }
