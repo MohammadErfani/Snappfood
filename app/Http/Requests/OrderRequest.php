@@ -27,7 +27,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'food_id'=>['numeric',new FoodExistRule()],
-            'count'=>'numeric|min:0'
+            'count'=>'numeric|min:1'
         ];
     }
 }

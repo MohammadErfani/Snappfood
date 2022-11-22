@@ -3,7 +3,7 @@
 use App\Http\Controllers\user\AddressController;
 use App\Http\Controllers\user\auth\UserController;
 use App\Http\Controllers\user\GetRestaurantController;
-use App\Http\Controllers\user\OrderController;
+use App\Http\Controllers\user\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,9 +50,10 @@ Route::prefix('/restaurants')->name('restaurants.')->middleware('auth:sanctum')-
     Route::get('/{restaurant}/foods/{food}',[GetRestaurantController::class,'showFood'])->name('showFoods');
 });
 Route::prefix('/carts')->name('carts.')->middleware('auth:sanctum')->group(function (){
-    Route::get('/',[OrderController::class,'index'])->name('index');
-    Route::post('/add',[OrderController::class,'store'])->name('store');
-    Route::get('/{order}/show',[OrderController::class,'index'])->name('show');
-    Route::patch('/add',[OrderController::class,'index'])->name('update');
-    Route::delete('/delete',[OrderController::class,'index'])->name('destroy');
+    Route::get('/',[CartController::class,'index'])->name('index');
+    Route::post('/add',[CartController::class,'store'])->name('store');
+    Route::get('/{order}/show',[CartController::class,'show'])->name('show');
+    Route::patch('/add',[CartController::class,'update'])->name('update');
+    Route::delete('/add',[CartController::class,'destroy'])->name('destroy');
+    Route::delete('/add/{food}',[CartController::class,'deleteFood'])->name('deleteFood');
 });
