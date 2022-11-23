@@ -11,14 +11,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+
     const NOTPAID = 0;
-    const PAID= 1;
-    const PENDING = 2;
+    const PAID = 1;
+    const REJECTED = 2;
     const INPROGRESS = 3;
     const SENDING = 4;
     const DELIVERED = 5;
-    protected $fillable = ['address_id','restaurant_id','user_id','status'];
+    protected $fillable = ['address_id', 'restaurant_id', 'user_id', 'status'];
+
     public function comment()
     {
         return $this->hasOne(Comment::class);
@@ -29,6 +31,21 @@ class Order extends Model
         return $this->belongsToMany(Food::class)->using(FoodOrder::class);
     }
 
+    public function foodCounts()
+    {
+        $foods = $this->foods;
+        $counts =[];
+        foreach($foods as $food){
+            $counts[$food->id] = FoodOrder::where('order_id',$this->id)->where('food_id',$food->id)->first()->count;
+        }
+        return $counts;
+
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);

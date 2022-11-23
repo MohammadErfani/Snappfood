@@ -81,7 +81,7 @@ class CartController extends Controller
     public function update(OrderRequest $request)
     {
         $order = auth()->user()->orders->where('status',Order::NOTPAID)->first();
-        $food = Food::find($request->food_id)->first();
+        $food = Food::find($request->food_id);
         if(empty($order)) {
             return response(['msg'=>"you don't have active cart. First add Cart then update it"]);
         }

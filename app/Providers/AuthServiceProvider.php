@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+ use App\Models\Order;
  use App\Models\restaurant\Salesman;
  use App\Models\User;
  use Illuminate\Auth\Access\Response;
@@ -32,6 +33,11 @@ class AuthServiceProvider extends ServiceProvider
                 Response::allow()
                 :Response::deny('You have Restaurant you cant create more restaurant')
                 ;
+        });
+        Gate::define('order-ability',function (Salesman $salesman,Order $order){
+           return $order->restaurant_id === $salesman->restaurant->id?
+                Response::allow()
+               :Response::deny("This order doesn't belong to your restaurant");
         });
     }
 }

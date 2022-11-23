@@ -6,59 +6,50 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param OrderRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(OrderRequest $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
     public function show(Order $order)
     {
-        //
+        Gate::forUser(Auth::guard('salesman')->user())->authorize('order-ability', $order);
+        return view('restaurant.order.showOrder',compact('order'));
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
+    public function archive()
     {
-        //
+        $orders = Order::all()->where('status', Order::DELIVERED)
+                                ->where('restaurant_id', Auth::guard('salesman')->user()->restaurant->id);
+        return view('restaurant.order.archive',compact('orders'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
+    public function accept(Order $order)
     {
-        //
+        Gate::forUser(Auth::guard('salesman')->user())->authorize('order-ability', $order);
+        $order->update(['status' => Order::INPROGRESS]);
+        return redirect()->route('restaurant.dashboard');
+    }
+
+    public function reject(Order $order)
+    {
+        Gate::forUser(Auth::guard('salesman')->user())->authorize('order-ability', $order);
+        $order->update(['status' => Order::REJECTED]);
+        return redirect()->route('restaurant.dashboard');
+    }
+
+    public function sending(Order $order)
+    {
+        Gate::forUser(Auth::guard('salesman')->user())->authorize('order-ability', $order);
+        $order->update(['status' => Order::SENDING]);
+        return redirect()->route('restaurant.dashboard');
+    }
+
+    public function delivered(Order $order)
+    {
+        Gate::forUser(Auth::guard('salesman')->user())->authorize('order-ability', $order);
+        $order->update(['status' => Order::DELIVERED]);
+        return redirect()->route('restaurant.dashboard');
     }
 }

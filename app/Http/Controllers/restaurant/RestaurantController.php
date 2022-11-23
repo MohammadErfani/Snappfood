@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RestaurantRequest;
 use App\Models\Address;
 use App\Models\admin\RestaurantCategory;
+use App\Models\Order;
 use App\Models\restaurant\Restaurant;
 use App\Models\restaurant\Schedule;
 use Dflydev\DotAccessData\Data;
@@ -20,11 +21,12 @@ class RestaurantController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
-        return view('restaurant.dashboard');
+        $orders = Order::all()->whereNotIn('status',[Order::NOTPAID,Order::DELIVERED,Order::REJECTED])->where('restaurant_id',Auth::guard('salesman')->user()->restaurant->id);
+        return view('restaurant.dashboard',compact('orders'));
     }
 
     /**
