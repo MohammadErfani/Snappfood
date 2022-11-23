@@ -19,7 +19,7 @@ class Order extends Model
     const INPROGRESS = 3;
     const SENDING = 4;
     const DELIVERED = 5;
-    protected $fillable = ['address_id', 'restaurant_id', 'user_id', 'status'];
+    protected $fillable = ['address_id', 'restaurant_id', 'user_id', 'status','total_price'];
 
     public function comment()
     {
@@ -54,5 +54,18 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function calculateTotal()
+    {
+        $total = 0;
+        $foods = $this->foods;
+        foreach($foods as $food){
+            $off = $food->discount?1-$food->discount->percentage:1;
+            $price = $food->price * $off;
+            $total = $price *$this->foodCounts()[$food->id];
+        }
+        return $total;
+
     }
 }

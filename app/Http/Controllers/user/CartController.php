@@ -8,6 +8,7 @@ use App\Http\Resources\CartResource;
 use App\Models\Order;
 use App\Models\Pivots\FoodOrder;
 use App\Models\restaurant\Food;
+use App\Notifications\CartNotification;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceResponse;
 use Illuminate\Http\Response;
@@ -124,7 +125,7 @@ class CartController extends Controller
     public function pay(Order $order)
     {
         if($order->status === Order::NOTPAID){
-            $order->update(['status'=>Order::PAID]);
+            $order->update(['status'=>Order::PAID,'total_price'=>$order->calculateTotal()]);
         }else{
             return response(['msg'=>"This Cart already paid"]);
         }
