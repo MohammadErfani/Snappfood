@@ -52,8 +52,9 @@ Route::prefix('/restaurants')->name('restaurants.')->middleware('auth:sanctum')-
 Route::prefix('/carts')->name('carts.')->middleware('auth:sanctum')->group(function (){
     Route::get('/',[CartController::class,'index'])->name('index');
     Route::post('/add',[CartController::class,'store'])->name('store');
-    Route::get('/{order}/show',[CartController::class,'show'])->name('show');
+    Route::get('/show/{order}',[CartController::class,'show'])->name('show');
     Route::patch('/add',[CartController::class,'update'])->name('update');
     Route::delete('/add',[CartController::class,'destroy'])->name('destroy');
     Route::delete('/add/{food}',[CartController::class,'deleteFood'])->name('deleteFood');
+    Route::post('/{order}/pay',[CartController::class,'pay'])->name('pay');
 });

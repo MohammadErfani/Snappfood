@@ -14,11 +14,12 @@ class CartFoodResource extends JsonResource
      */
     public function toArray($request)
     {
+        $off = $this->food->discount ? 1-$this->food->discount->percentage:1;
         return [
             'id' => $this->food->id,
             'title' => $this->food->name,
             'count'=>$this->count,
-            'price'=>$this->food->price
+            'price'=>$this->food->price*$off
         ];
     }
 }

@@ -23,7 +23,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        return response(CartResource::collection(Order::all()));
+        return response(CartResource::collection(auth()->user()->orders));
     }
 
     /**
@@ -35,7 +35,7 @@ class CartController extends Controller
     public function store(OrderRequest $request)
     {
         $order = auth()->user()->orders->where('status',Order::NOTPAID)->first();   //if there was active cart don't create new one
-        $food = Food::find($request->food_id)->first();
+        $food = Food::find($request->food_id);
         if(empty($order)) {
             $order = Order::create(
                 [
@@ -65,6 +65,9 @@ class CartController extends Controller
      */
     public function show(Order $order)
     {
+        if($order->user->id !== auth()->user()->id){
+            return response(['msg'=>"This Cart doesn't belongs to you"]);
+        }
         return response(CartResource::make($order));
     }
 
@@ -115,6 +118,17 @@ class CartController extends Controller
         }
         FoodOrder::where('order_id',$order->id)->where('food_id',$food->id)->delete();
         return response(['msg'=>"This food deleted from your cart"]);
+
+    }
+
+    public function pay(Order $order)
+    {
+        if($order->status === Order::NOTPAID){
+            $order->update(['status'=>Order::PAID]);
+        }else{
+            return response(['msg'=>"This Cart already paid"]);
+        }
+        return response(['msg'=>"Your cart paid successfully"]);
 
     }
 }
