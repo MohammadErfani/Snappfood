@@ -124,11 +124,19 @@ class CartController extends Controller
 
     public function pay(Order $order)
     {
+        $total = $order->calculateTotal();
         if($order->status === Order::NOTPAID){
-            $order->update(['status'=>Order::PAID,'total_price'=>$order->calculateTotal()]);
+            $order->update(['status'=>Order::PAID,'total_price'=>$total]);
         }else{
             return response(['msg'=>"This Cart already paid"]);
         }
+        $data = [
+            'header'=>"Your Cart Paid",
+            'button'=>"Follow up your Cart",
+            'url'=>"https://www.snappfood.ir",
+            'body'=>"Your Cart Price is: $total"
+        ];
+       auth()->user()->notify(new CartNotification($data));
         return response(['msg'=>"Your cart paid successfully"]);
 
     }
