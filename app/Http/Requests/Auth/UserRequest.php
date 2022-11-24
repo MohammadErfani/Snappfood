@@ -27,8 +27,8 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,deleted_at,null'],
-            'phone'=>['required',new PhoneRule(),'unique:users,deleted_at,null'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,NULL,id,deleted_at,NULL'],
+            'phone'=>['required',new PhoneRule(),'unique:users,phone,NULL,id,deleted_at,NULL'],
             'password' => ['required', Password::defaults()],
         ];
     }

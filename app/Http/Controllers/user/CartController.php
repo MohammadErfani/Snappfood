@@ -38,7 +38,12 @@ class CartController extends Controller
         \Illuminate\Support\Facades\Gate::forUser($user)->authorize('create-cart');
         $food = Food::find($request->food_id);
         if (!Redis::exists($user->id)) {
-            Redis::hset($user->id, 'restaurant_id', $food->restaurant->id);
+            if ($food->restaurant->is_open) {
+                Redis::hset($user->id, 'restaurant_id', $food->restaurant->id);
+            }else{
+                return response(['msg'=>"This Restaurant is Closed"]);
+            }
+
         }
         if (Redis::hexists($user->id, $food->id)) {
             return response(['msg' => "you already add this food if you want to change count of this food update it in your cart"]);
@@ -47,7 +52,7 @@ class CartController extends Controller
             return response(['msg' => "you cant add this food. This food is from another restaurant"]);
         }
         Redis::hset($user->id, $food->id, $request->count);
-        return response(['msg'=>"This food added to Your Cart"]);
+        return response(['msg' => "This food added to Your Cart"]);
 
     }
 
@@ -76,10 +81,10 @@ class CartController extends Controller
         $restaurant = Restaurant::find($cart['restaurant_id']);
         unset($cart['restaurant_id']);
         $foods = [];
-        foreach($cart as $id=>$count){
+        foreach ($cart as $id => $count) {
             $food = Food::find($id);
             $food->count = $count;
-            $foods[]=$food;
+            $foods[] = $food;
         }
         return ActiveCartResource::getRestaurant($restaurant)::collection($foods);
     }
@@ -96,8 +101,7 @@ class CartController extends Controller
             return response(['msg' => "this food doesn't exist in your cart"]);
         }
         Redis::hset($user->id, $food->id, $request->count);
-        var_dump(Redis::hgetall($user->id));
-        return response(['msg'=>"Your Cart Updated."]);
+        return response(['msg' => "Your Cart Updated."]);
     }
 
 
@@ -109,7 +113,7 @@ class CartController extends Controller
         }
 
         Redis::del($user->id);
-        return response(['msg'=>"Your Cart Deleted"]);
+        return response(['msg' => "Your Cart Deleted"]);
     }
 
     public function deleteFood(Food $food)
@@ -124,13 +128,14 @@ class CartController extends Controller
         Redis::hdel($user->id, $food->id);
         $cart = Redis::hgetall($user->id);
         unset($cart['restaurant_id']);
-       if(empty($cart)){
-           Redis::del($user->id);
-           return response(['msg'=>"Your Cart deleted "]);
-       }
+        if (empty($cart)) {
+            Redis::del($user->id);
+            return response(['msg' => "Your Cart deleted "]);
+        }
         return response(['msg' => "This food deleted from your cart"]);
 
     }
+
     public function pay()
     {
         $user = auth()->user();
@@ -140,12 +145,12 @@ class CartController extends Controller
         $cart = Redis::hgetall($user->id);
         $order = Order::create(['restaurant_id' => $cart['restaurant_id'],
             'user_id' => $user->id,
-            'address_id'=>$user->addresses->where('is_current', 1)->first()->id,
-            'status'=>Order::PAID
-            ]);
+            'address_id' => $user->addresses->where('is_current', 1)->first()->id,
+            'status' => Order::PAID
+        ]);
         unset($cart['restaurant_id']);
-        foreach ($cart as $food=>$count){
-            $cart[$food]=['count'=>$count];
+        foreach ($cart as $food => $count) {
+            $cart[$food] = ['count' => $count];
         }
         $order->foods()->sync($cart);
         Redis::del($user->id);
