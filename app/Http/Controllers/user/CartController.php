@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
+use App\Http\Resources\ActiveCartResource;
 use App\Http\Resources\CartResource;
 use App\Models\Order;
 use App\Models\Pivots\FoodOrder;
@@ -44,7 +45,7 @@ class CartController extends Controller
             return response(['msg' => "you cant add this food. This food is from another restaurant"]);
         }
         Redis::hset($user->id, $food->id, $request->count);
-        return "your food add to cart";
+        return response(['msg'=>"This food added to Your Cart"]);
 
     }
 
@@ -62,7 +63,24 @@ class CartController extends Controller
         return response(CartResource::make($order));
     }
 
+    public function showActive()
+    {
+        $user = auth()->user();
 
+        if (!Redis::exists($user->id)) {
+            return response(['msg' => "you don't have active cart."]);
+        }
+        $cart = Redis::hgetall($user->id);
+        $restaurant = Restaurant::find($cart['restaurant_id']);
+        unset($cart['restaurant_id']);
+        $foods = [];
+        foreach($cart as $id=>$count){
+            $food = Food::find($id);
+            $food->count = $count;
+            $foods[]=$food;
+        }
+        return ActiveCartResource::getRestaurant($restaurant)::collection($foods);
+    }
 
 
     public function update(OrderRequest $request)
@@ -77,7 +95,7 @@ class CartController extends Controller
         }
         Redis::hset($user->id, $food->id, $request->count);
         var_dump(Redis::hgetall($user->id));
-        return "your cart updated";
+        return response(['msg'=>"Your Cart Updated."]);
     }
 
 
@@ -89,7 +107,7 @@ class CartController extends Controller
         }
 
         Redis::del($user->id);
-        return "your cart Deleted";
+        return response(['msg'=>"Your Cart Deleted"]);
     }
 
     public function deleteFood(Food $food)
@@ -101,7 +119,13 @@ class CartController extends Controller
         if (!Redis::hexists($user->id, $food->id)) {
             return response(['msg' => "this food doesn't exist in your cart"]);
         }
-        Redis::del($user->id, $food->id);
+        Redis::hdel($user->id, $food->id);
+        $cart = Redis::hgetall($user->id);
+        unset($cart['restaurant_id']);
+       if(empty($cart)){
+           Redis::del($user->id);
+           return response(['msg'=>"Your Cart deleted "]);
+       }
         return response(['msg' => "This food deleted from your cart"]);
 
     }

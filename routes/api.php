@@ -58,4 +58,5 @@ Route::prefix('/carts')->name('carts.')->middleware('auth:sanctum')->group(funct
     Route::delete('/add/{food}',[CartController::class,'deleteFood'])->name('deleteFood');
 //    Route::post('/{order}/pay',[CartController::class,'pay'])->name('pay');
     Route::post('/pay',[CartController::class,'pay'])->name('pay');
+    Route::get('/showActive',[CartController::class,'showActive'])->name('showActive');
 });
