@@ -8,10 +8,12 @@ use App\Http\Resources\CartResource;
 use App\Models\Order;
 use App\Models\Pivots\FoodOrder;
 use App\Models\restaurant\Food;
+use App\Models\restaurant\Restaurant;
 use App\Notifications\CartNotification;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Validation\Rule;
 use function PHPUnit\Framework\isEmpty;
 
@@ -27,34 +29,22 @@ class CartController extends Controller
         return response(CartResource::collection(auth()->user()->orders));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param OrderRequest $request
-     * @return Response
-     */
-    public function store(OrderRequest $request)
+
+    public function store(OrderRequest $request)            // redis base cart
     {
-        $order = auth()->user()->orders->where('status',Order::NOTPAID)->first();   //if there was active cart don't create new one
+        $user = auth()->user();
         $food = Food::find($request->food_id);
-        if(empty($order)) {
-            $order = Order::create(
-                [
-                    'restaurant_id' => $food->restaurant_id,
-                    'user_id' => auth()->user()->id,
-                    'address_id' => auth()->user()->addresses->where('is_current', 1)->first()->id,
-                    'status' => Order::NOTPAID
-                ]);
+        if (!Redis::exists($user->id)) {
+            Redis::hset($user->id, 'restaurant_id', $food->restaurant->id);
         }
-        if(FoodOrder::where('order_id',$order->id)->where('food_id',$food->id)->exists()){         //don't add same food to cart
-            return response(['msg'=>"you already add this food if you want to change count of this food update it in your cart"]);
+        if (Redis::hexists($user->id, $food->id)) {
+            return response(['msg' => "you already add this food if you want to change count of this food update it in your cart"]);
         }
-        if($food->restaurant_id !== $order->restaurant_id)       // don't allow adding foods from another restaurant
-        {
-            return response(['msg'=>"you cant add this food. This food is from another restaurant"]);
+        if (Redis::hget($user->id, 'restaurant_id') != $food->restaurant->id) {
+            return response(['msg' => "you cant add this food. This food is from another restaurant"]);
         }
-        $order->foods()->save($food,['count'=>$request->count]);
-        return response(CartResource::make($order));
+        Redis::hset($user->id, $food->id, $request->count);
+        return "your food add to cart";
 
     }
 
@@ -66,78 +56,83 @@ class CartController extends Controller
      */
     public function show(Order $order)
     {
-        if($order->user->id !== auth()->user()->id){
-            return response(['msg'=>"This Cart doesn't belongs to you"]);
+        if ($order->user->id !== auth()->user()->id) {
+            return response(['msg' => "This Cart doesn't belongs to you"]);
         }
         return response(CartResource::make($order));
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param OrderRequest $request
-     * @return Response
-     */
+
+
     public function update(OrderRequest $request)
     {
-        $order = auth()->user()->orders->where('status',Order::NOTPAID)->first();
+        $user = auth()->user();
         $food = Food::find($request->food_id);
-        if(empty($order)) {
-            return response(['msg'=>"you don't have active cart. First add Cart then update it"]);
+        if (!Redis::exists($user->id)) {
+            return response(['msg' => "you don't have active cart. First add Cart then update it"]);
         }
-        if (!FoodOrder::where('order_id', $order->id)->where('food_id', $food->id)->exists()) {         //don't add same food to cart
+        if (!Redis::hexists($user->id, $food->id)) {
             return response(['msg' => "this food doesn't exist in your cart"]);
         }
-        FoodOrder::where('order_id',$order->id)->where('food_id',$food->id)->update(['count'=>$request->count]);
-        return response(CartResource::make($order));
+        Redis::hset($user->id, $food->id, $request->count);
+        var_dump(Redis::hgetall($user->id));
+        return "your cart updated";
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return Response
-     */
+
     public function destroy()
     {
-        $order = auth()->user()->orders->where('status',Order::NOTPAID)->first();
-        if(empty($order)) {
-            return response(['msg'=>"you don't have active cart. First add Cart then update it"]);
+        $user = auth()->user();
+        if (!Redis::exists($user->id)) {
+            return response(['msg' => "you don't have active cart to Delete "]);
         }
-        $order->delete();
-        return response(['msg'=>"Your active cart deleted "]);
+
+        Redis::del($user->id);
+        return "your cart Deleted";
     }
 
     public function deleteFood(Food $food)
     {
-        $order = auth()->user()->orders->where('status',Order::NOTPAID)->first();
-        if(empty($order)) {
-            return response(['msg'=>"you don't have active cart. First add Cart then update it"]);
+        $user = auth()->user();
+        if (!Redis::exists($user->id)) {
+            return response(['msg' => "you don't have active cart. First add Cart then update it"]);
         }
-        if (!FoodOrder::where('order_id', $order->id)->where('food_id', $food->id)->exists()) {         //don't add same food to cart
+        if (!Redis::hexists($user->id, $food->id)) {
             return response(['msg' => "this food doesn't exist in your cart"]);
         }
-        FoodOrder::where('order_id',$order->id)->where('food_id',$food->id)->delete();
-        return response(['msg'=>"This food deleted from your cart"]);
+        Redis::del($user->id, $food->id);
+        return response(['msg' => "This food deleted from your cart"]);
 
     }
-
-    public function pay(Order $order)
+    public function pay()
     {
-        $total = $order->calculateTotal();
-        if($order->status === Order::NOTPAID){
-            $order->update(['status'=>Order::PAID,'total_price'=>$total]);
-        }else{
-            return response(['msg'=>"This Cart already paid"]);
+        $user = auth()->user();
+        if (!Redis::exists($user->id)) {
+            return response(['msg' => "you don't have active cart to Pay "]);
         }
+        $cart = Redis::hgetall($user->id);
+        $order = Order::create(['restaurant_id' => $cart['restaurant_id'],
+            'user_id' => $user->id,
+            'address_id'=>$user->addresses->where('is_current', 1)->first()->id,
+            'status'=>Order::PAID
+            ]);
+        unset($cart['restaurant_id']);
+        foreach ($cart as $food=>$count){
+            $cart[$food]=['count'=>$count];
+        }
+        $order->foods()->sync($cart);
+        Redis::del($user->id);
+        $total = $order->calculateTotal();
+        $order->update(['total_price' => $total]);
         $data = [
-            'header'=>"Your Cart Paid",
-            'button'=>"Follow up your Cart",
-            'url'=>"https://www.snappfood.ir",
-            'body'=>"Your Cart Price is: $total"
+            'header' => "Your Cart Paid",
+            'button' => "Follow up your Cart",
+            'url' => "https://www.snappfood.ir",
+            'body' => "Your Cart Price is: $total"
         ];
-       auth()->user()->notify(new CartNotification($data));
-        return response(['msg'=>"Your cart paid successfully"]);
+        auth()->user()->notify(new CartNotification($data));
+        return response(['msg' => "Your cart paid successfully"]);
 
     }
 }
