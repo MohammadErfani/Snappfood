@@ -11,6 +11,7 @@ use App\Models\Pivots\FoodOrder;
 use App\Models\restaurant\Food;
 use App\Models\restaurant\Restaurant;
 use App\Notifications\CartNotification;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceResponse;
 use Illuminate\Http\Response;
@@ -34,6 +35,7 @@ class CartController extends Controller
     public function store(OrderRequest $request)            // redis base cart
     {
         $user = auth()->user();
+        \Illuminate\Support\Facades\Gate::forUser($user)->authorize('create-cart');
         $food = Food::find($request->food_id);
         if (!Redis::exists($user->id)) {
             Redis::hset($user->id, 'restaurant_id', $food->restaurant->id);

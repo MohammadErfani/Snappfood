@@ -6,6 +6,7 @@
     </x-slot>
     <h2 class="font-bold text-xl ml-4 text-blue-800">Customer:</h2> <span class="text-blue-900 ml-20 text-lg ">{{$order->user->name}}</span>
     <h2 class="font-bold text-xl ml-4 text-blue-800">Delivered Address: </h2><span class="text-blue-900 ml-20 text-lg ">{{$order->address->address}}</span>
+    <h2 class="font-bold text-xl ml-4 text-blue-800">Order Price: </h2><span class="text-blue-900 ml-20 text-lg ">{{$order->total_price}}</span>
     <table class="w-5/6  text-left text-green-800 font-extrabold dark:text-gray-400 mt-3">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
