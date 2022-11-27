@@ -13,8 +13,8 @@ class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const NOTPAID = 0;
-    const PAID = 1;
+    const PAID = 0;
+    const ADDED = 1;
     const REJECTED = 2;
     const INPROGRESS = 3;
     const SENDING = 4;
@@ -56,7 +56,10 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function calculateTotal()
+    /**
+     * @return float|int
+     */
+    public function calculateTotal():int
     {
         $total = 0;
         $foods = $this->foods;

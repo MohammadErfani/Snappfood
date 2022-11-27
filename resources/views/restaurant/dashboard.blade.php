@@ -30,7 +30,7 @@
                 <td class="py-4 px-6 text-xl">
                     <a href="{{route('restaurant.order.show',$order->id)}}">{{$order->total_price}}</a>
                 </td>
-            @if($order->status === \App\Models\Order::PAID)
+            @if($order->status === \App\Models\Order::ADDED)
 
                     <td class="py-4 px-6">
                         <form action="{{route('restaurant.order.reject',$order->id)}}" method="post">

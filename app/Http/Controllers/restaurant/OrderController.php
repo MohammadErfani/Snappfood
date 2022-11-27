@@ -30,14 +30,6 @@ class OrderController extends Controller
     {
         Gate::forUser(Auth::guard('salesman')->user())->authorize('order-ability', $order);
         $order->update(['status' => Order::INPROGRESS]);
-        $data = [
-            'header'=>"Your Cart Accepted by {$order->restaurant->name}",
-            'button'=>"Follow up your Cart",
-            'url'=>"https://www.snappfood.ir",
-            'body'=>"Your foods is now in progress and soon would be sending "
-        ];
-        $user = $order->user;
-        $user->notify(new CartNotification($data));
         return redirect()->route('restaurant.dashboard');
     }
 
@@ -45,14 +37,6 @@ class OrderController extends Controller
     {
         Gate::forUser(Auth::guard('salesman')->user())->authorize('order-ability', $order);
         $order->update(['status' => Order::REJECTED]);
-        $data = [
-            'header'=>"Your Cart denied by {$order->restaurant->name}",
-            'button'=>"Make New Cart",
-            'url'=>"https://www.snappfood.ir",
-            'body'=>"Sorry about this. Your money will keep in your wallet. If you Want we can return your money in 2 hour "
-        ];
-        $user = $order->user;
-        $user->notify(new CartNotification($data));
         return redirect()->route('restaurant.dashboard');
     }
 
@@ -60,14 +44,6 @@ class OrderController extends Controller
     {
         Gate::forUser(Auth::guard('salesman')->user())->authorize('order-ability', $order);
         $order->update(['status' => Order::SENDING]);
-        $data = [
-            'header'=>"Your Food Is Ready. We send your food in any minute",
-            'button'=>"See Your shipment information",
-            'url'=>"https://www.snappfood.ir",
-            'body'=>"We hope Your food delivered to You as hot as we sent"
-        ];
-        $user = $order->user;
-        $user->notify(new CartNotification($data));
         return redirect()->route('restaurant.dashboard');
     }
 
@@ -75,14 +51,6 @@ class OrderController extends Controller
     {
         Gate::forUser(Auth::guard('salesman')->user())->authorize('order-ability', $order);
         $order->update(['status' => Order::DELIVERED]);
-        $data = [
-            'header'=>"Your Food Delivered",
-            'button'=>"Share Your Opinion with us",
-            'url'=>"https://www.snappfood.ir",
-            'body'=>"Please Comment and score your food and restaurant. Your Comments help Other to get better food."
-        ];
-        $user = $order->user;
-        $user->notify(new CartNotification($data));
         return redirect()->route('restaurant.dashboard');
     }
 }

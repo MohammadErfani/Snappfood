@@ -25,7 +25,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        $orders = Order::all()->whereNotIn('status',[Order::NOTPAID,Order::DELIVERED,Order::REJECTED])->where('restaurant_id',Auth::guard('salesman')->user()->restaurant->id);
+        $orders = Order::all()->whereNotIn('status',[Order::PAID,Order::DELIVERED,Order::REJECTED])->where('restaurant_id',Auth::guard('salesman')->user()->restaurant->id);
         return view('restaurant.dashboard',compact('orders'));
     }
 

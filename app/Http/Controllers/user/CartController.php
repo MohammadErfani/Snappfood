@@ -153,16 +153,8 @@ class CartController extends Controller
             $cart[$food] = ['count' => $count];
         }
         $order->foods()->sync($cart);
+        $order->update(['status'=>Order::ADDED,'total_price'=>$order->calculateTotal()]);
         Redis::del($user->id);
-        $total = $order->calculateTotal();
-        $order->update(['total_price' => $total]);
-        $data = [
-            'header' => "Your Cart Paid",
-            'button' => "Follow up your Cart",
-            'url' => "https://www.snappfood.ir",
-            'body' => "Your Cart Price is: $total"
-        ];
-        auth()->user()->notify(new CartNotification($data));
         return response(['msg' => "Your cart paid successfully"]);
 
     }
