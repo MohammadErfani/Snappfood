@@ -4,6 +4,7 @@ use App\Http\Controllers\user\AddressController;
 use App\Http\Controllers\user\auth\UserController;
 use App\Http\Controllers\user\GetRestaurantController;
 use App\Http\Controllers\user\CartController;
+use App\Http\Controllers\user\WalletController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,4 +60,8 @@ Route::prefix('/carts')->name('carts.')->middleware('auth:sanctum')->group(funct
 //    Route::post('/{order}/pay',[CartController::class,'pay'])->name('pay');
     Route::post('/pay',[CartController::class,'pay'])->name('pay');
     Route::get('/showActive',[CartController::class,'showActive'])->name('showActive');
+});
+Route::prefix('/wallet')->name('wallet.')->middleware('auth:sanctum')->group(function(){
+    Route::patch('/',[WalletController::class,'add'])->name('add');
+    Route::get('/',[WalletController::class,'show'])->name('show');
 });

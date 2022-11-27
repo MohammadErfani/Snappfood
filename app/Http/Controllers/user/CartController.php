@@ -40,8 +40,8 @@ class CartController extends Controller
         if (!Redis::exists($user->id)) {
             if ($food->restaurant->is_open) {
                 Redis::hset($user->id, 'restaurant_id', $food->restaurant->id);
-            }else{
-                return response(['msg'=>"This Restaurant is Closed"]);
+            } else {
+                return response(['msg' => "This Restaurant is Closed"]);
             }
 
         }
@@ -143,17 +143,26 @@ class CartController extends Controller
             return response(['msg' => "you don't have active cart to Pay "]);
         }
         $cart = Redis::hgetall($user->id);
-        $order = Order::create(['restaurant_id' => $cart['restaurant_id'],
+        $restaurantId = $cart['restaurant_id'];
+        unset($cart['restaurant_id']);
+        $finalPrice = 0;
+        foreach ($cart as $food => $count) {
+            $cart[$food] = ['count' => $count];
+            $finalPrice += Food::finalPrice($food, $count);
+        }
+        $money = $finalPrice - $user->wallet;
+        if ($money > 0) {
+            return response(['msg'=>"You don't have enough money in your wallet. You have $money short"]);
+        }
+        $user->wallet = -$money;
+        $user->save();
+        $order = Order::create(['restaurant_id' => $restaurantId,
             'user_id' => $user->id,
             'address_id' => $user->addresses->where('is_current', 1)->first()->id,
             'status' => Order::PAID
         ]);
-        unset($cart['restaurant_id']);
-        foreach ($cart as $food => $count) {
-            $cart[$food] = ['count' => $count];
-        }
         $order->foods()->sync($cart);
-        $order->update(['status'=>Order::ADDED,'total_price'=>$order->calculateTotal()]);
+        $order->update(['status' => Order::ADDED, 'total_price' => $order->calculateTotal()]);
         Redis::del($user->id);
         return response(['msg' => "Your cart paid successfully"]);
 

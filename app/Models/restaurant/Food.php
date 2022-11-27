@@ -13,12 +13,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Food extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $fillable = ['name','price','picture','material','restaurant_id','discount_id'];
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = ['name', 'price', 'picture', 'material', 'restaurant_id', 'discount_id'];
+
     public function foodCategories()
     {
         return $this->belongsToMany(FoodCategory::class);
     }
+
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
@@ -28,13 +31,22 @@ class Food extends Model
     {
         return $this->belongsToMany(Order::class)->using(FoodOrder::class);
     }
-    public function comments(){
-        return $this->hasManyThrough(Comment::class,FoodOrder::class,
-                                    'food_id','order_id','id','order_id');
+
+    public function comments()
+    {
+        return $this->hasManyThrough(Comment::class, FoodOrder::class,
+            'food_id', 'order_id', 'id', 'order_id');
     }
 
     public function discount()
     {
         return $this->belongsTo(Discount::class);
+    }
+
+    public static function finalPrice(int $id, int $count = 1)
+    {
+        $food = self::find($id);
+        $off = $food->discount ? 1 - $food->discount->percentage : 1;
+        return $food->price * $off * $count;
     }
 }
