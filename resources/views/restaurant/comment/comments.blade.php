@@ -10,7 +10,7 @@
             <th scope="col" class="py-3 px-6 text-xl">Author Name</th>
             <th scope="col" class="py-3 px-6 text-xl">Score</th>
             <th scope="col" class="py-3 px-6 text-xl">Content</th>
-            <th scope="col" class="py-3 px-6 text-xl">Answer</th>
+            <th scope="col" class="py-3 px-6 text-xl text-left">Answer</th>
 
         </tr>
         </thead>
@@ -18,14 +18,21 @@
         @forelse($comments as $comment )
             <tr>
                 <td class="py-4 px-6 text-xl">
-                    {{$comment->user->name}}
+                    <a href="{{route('restaurant.order.show',$comment->order->id)}}">
+                        {{$comment->user->name}}
+                    </a>
                 </td>
                 <td class="py-4 px-6 text-xl">
-                    {{$comment->score}}
+                    <a href="{{route('restaurant.order.show',$comment->order->id)}}">
+                        {{$comment->score}}
+                    </a>
                 </td>
                 <td class="py-4 px-6 text-xl">
-                    {{$comment->content}}
+                    <a href="{{route('restaurant.order.show',$comment->order->id)}}">
+                        {{$comment->content}}
+                    </a>
                 </td>
+
                 <td class="py-4 px-6 text-xl">
                     <form action="{{route('restaurant.comment.answer',$comment->id)}}" method="post" class="flex">
                         @method('patch')
@@ -68,10 +75,10 @@
                         </form>
                     </td>
                 @endif
-                <td >
-                @if($comment->status == \App\Models\Comment::DELETEREQUEST)
-                    <span class="text-red-600">Delete Request Sent</span>
-                @endif
+                <td>
+                    @if($comment->status == \App\Models\Comment::DELETEREQUEST)
+                        <span class="text-red-600">Delete Request Sent</span>
+                    @endif
                 </td>
             </tr>
         @empty
