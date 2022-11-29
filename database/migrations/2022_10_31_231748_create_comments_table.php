@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('order_id')->unique();
             $table->integer('score');
             $table->text('content');
             $table->text('answer')->nullable();
             $table->integer('status');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('order_id')->references('id')->on('orders');
             $table->softDeletes();
             $table->timestamps();

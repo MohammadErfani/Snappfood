@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\user\AddressController;
 use App\Http\Controllers\user\auth\UserController;
+use App\Http\Controllers\user\CommentController;
 use App\Http\Controllers\user\GetRestaurantController;
 use App\Http\Controllers\user\CartController;
 use App\Http\Controllers\user\WalletController;
@@ -64,4 +65,9 @@ Route::prefix('/carts')->name('carts.')->middleware('auth:sanctum')->group(funct
 Route::prefix('/wallet')->name('wallet.')->middleware('auth:sanctum')->group(function(){
     Route::patch('/',[WalletController::class,'add'])->name('add');
     Route::get('/',[WalletController::class,'show'])->name('show');
+});
+
+Route::prefix('/comments')->name('comments.')->middleware('auth:sanctum')->group(function(){
+   Route::get('/',[CommentController::class,'foodComments'])->name('foodComments');
+   Route::post('/',[CommentController::class,'store'])->name('store');
 });
