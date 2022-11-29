@@ -2,6 +2,7 @@
 // Admin Routes place here except for authentication . That was in auth
 use App\Http\Controllers\admin\Auth\AdminLoginController;
 use App\Http\Controllers\admin\Auth\AdminRegisterController;
+use App\Http\Controllers\admin\DeleteCommentController;
 use App\Http\Controllers\admin\DiscountController;
 use App\Http\Controllers\admin\FoodCategoryController;
 use App\Http\Controllers\admin\RestaurantCategoryController;
@@ -14,6 +15,9 @@ Route::prefix('/admin')->name('admin.')->middleware(['isAdmin'])->group(function
     Route::resource('/foodCategory',FoodCategoryController::class);
     Route::resource('/restaurantCategory',RestaurantCategoryController::class);
     Route::resource('/discount',DiscountController::class);
+    Route::get('/comments/',[DeleteCommentController::class,'index'])->name('comment.index');
+    Route::delete('/comments/{comment}',[DeleteCommentController::class,'delete'])->name('comment.delete');
+    Route::patch('comments/{comment}',[DeleteCommentController::class,'accept'])->name('comment.accept');
 });
 Route::prefix('/admin')->name('admin.')->middleware('isNotAdmin')->group(function (){
     Route::get('login',[AdminLoginController::class,'create'])->name('login');

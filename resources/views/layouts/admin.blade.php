@@ -36,56 +36,56 @@
                     <li>
                         <a href="{{route('admin.dashboard')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="ml-3 font-extrabold">داشبورد</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Dashboard</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="{{route('admin.foodCategory.create')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت دسته‌بندی غذا</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Create Food Category</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('admin.foodCategory.index')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">تمام دسته‌بندی‌های غذا</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">List Of Food Categories</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('admin.restaurantCategory.create')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت دسته بندی رستوران</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Create Restaurant Categories</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('admin.restaurantCategory.index')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">تمام دسته‌بندی‌های رستوران</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">List of Restaurant Categories</span>
                         </a>
                     </li>
                     <li>
                         <a href="#"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت بنر</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Create Banner</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('admin.discount.create')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت تخفیف</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Create Discount</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('admin.discount.index')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">تمام تخفیف ها</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">List of Discounts</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{route('admin.comment.index')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">حذف کامنت</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Delete Comment Requests</span>
                         </a>
                     </li>
 
