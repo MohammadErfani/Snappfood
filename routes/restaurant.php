@@ -2,6 +2,7 @@
 // Admin Routes place here except for authentication . That was in auth
 use App\Http\Controllers\restaurant\Auth\SalesmanLoginController;
 use App\Http\Controllers\restaurant\Auth\SalesmanRegisterController;
+use App\Http\Controllers\restaurant\CommentController;
 use App\Http\Controllers\restaurant\FoodController;
 use App\Http\Controllers\restaurant\OrderController;
 use App\Http\Controllers\restaurant\RestaurantController;
@@ -33,7 +34,13 @@ Route::prefix('/restaurant')->name('restaurant.')->middleware(['isSalesman', 'au
         Route::patch('/sending/{order}',[OrderController::class,'sending'])->name('sending');
         Route::patch('/delivered/{order}',[OrderController::class,'delivered'])->name('delivered');
         Route::get('/archive',[OrderController::class,'archive'])->name('archive');
+    });
 
+    Route::prefix('/comments')->name('comment.')->group(function(){
+        Route::get('/',[CommentController::class,'index'])->name('index');
+        Route::patch('/accept/{comment}',[CommentController::class,'accept'])->name('accept');
+        Route::patch('/delete/{comment}',[CommentController::class,'delete'])->name('delete');
+        Route::patch('/answer/{comment}',[CommentController::class,'answer'])->name('answer');
     });
 });
 Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middleware(['isSalesman'])->name('restaurant.create');

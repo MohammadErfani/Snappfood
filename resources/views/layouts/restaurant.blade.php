@@ -42,43 +42,43 @@
             {{ $slot }}
         </main>
         <aside class="w-64  right h-screen  sticky top-0  " aria-label="Sidebar">
-            <div class="overflow-y-auto py-4 px-3 bg-blue-400   rounded dark:bg-gray-800 ">
+            <div class="overflow-y-auto py-4 px-3 bg-blue-400 text-left  rounded dark:bg-gray-800 ">
                 <ul class="space-y-2">
                     <li>
                         <a href="{{route('restaurant.dashboard')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="ml-3 font-extrabold">داشبورد</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Dashboard</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="{{route('restaurant.food.create')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">ساخت غذا</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Create Food</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('restaurant.food.index')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">لیست غذاها</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">List of Foods</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('restaurant.order.archive')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">آرشیو سفارش ها</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Archive of Orders</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{route('restaurant.edit')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">تنظیمات رستوران</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Restaurant Setting</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{route('restaurant.comment.index')}}"
                            class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">نظرات</span>
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Comments</span>
                         </a>
                     </li>
 
