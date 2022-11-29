@@ -97,4 +97,10 @@ class Restaurant extends Model
             }
         }
     }
+
+    public function score()
+    {
+        $scores = $this->comments->pluck('score')->toArray();
+        return count($scores)!==0 ?array_sum($scores)/count($scores):"doesn't have score yet";
+    }
 }

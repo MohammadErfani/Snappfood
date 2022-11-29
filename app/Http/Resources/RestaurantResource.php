@@ -27,7 +27,7 @@ class RestaurantResource extends JsonResource
             'address'=>RestaurantAddressResource::make($this->address),
             'is_open'=>boolval($this->is_open),
             'image'=>$this->whenNotNull($this->picture),
-            'score'=>$this->score
+            'score'=>$this->score()
         ];
         if (self::$mode === 'single'){
             $restuarant['comments_count'] = $this->comments->count();
