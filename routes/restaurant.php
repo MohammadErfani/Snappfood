@@ -5,6 +5,7 @@ use App\Http\Controllers\restaurant\Auth\SalesmanRegisterController;
 use App\Http\Controllers\restaurant\CommentController;
 use App\Http\Controllers\restaurant\FoodController;
 use App\Http\Controllers\restaurant\OrderController;
+use App\Http\Controllers\restaurant\ReportController;
 use App\Http\Controllers\restaurant\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,10 @@ Route::prefix('/restaurant')->name('restaurant.')->middleware(['isSalesman', 'au
         Route::patch('/accept/{comment}',[CommentController::class,'accept'])->name('accept');
         Route::patch('/delete/{comment}',[CommentController::class,'delete'])->name('delete');
         Route::patch('/answer/{comment}',[CommentController::class,'answer'])->name('answer');
+    });
+    Route::prefix('/report')->name('report.')->group(function (){
+        Route::get('/',[ReportController::class,'index'])->name('index');
+        Route::get('/export',[ReportController::class,'export'])->name('export');
     });
 });
 Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middleware(['isSalesman'])->name('restaurant.create');

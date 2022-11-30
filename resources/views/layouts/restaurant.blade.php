@@ -82,6 +82,13 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="{{route('restaurant.report.index')}}"
+                           class="flex items-center p-4 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <span class="flex-1 ml-3 whitespace-nowrap font-extrabold">Sales Report</span>
+                        </a>
+                    </li>
+
                 </ul>
 
                 @if($a = \Illuminate\Support\Facades\Auth::guard('salesman')->user()->restaurant->picture)
