@@ -44,8 +44,12 @@ Route::prefix('/restaurant')->name('restaurant.')->middleware(['isSalesman', 'au
         Route::patch('/answer/{comment}',[CommentController::class,'answer'])->name('answer');
     });
     Route::prefix('/report')->name('report.')->group(function (){
-        Route::get('/',[ReportController::class,'index'])->name('index');
+        Route::get('/{year?}',function ($year=2022){
+            $controller = new ReportController();
+            return $controller->index($year);
+        })->name('index');
         Route::get('/export',[ReportController::class,'export'])->name('export');
+        Route::post('/filter',[ReportController::class,'filterYear'])->name('filter');
     });
 });
 Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middleware(['isSalesman'])->name('restaurant.create');
