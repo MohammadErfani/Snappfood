@@ -48,8 +48,9 @@ Route::prefix('/restaurant')->name('restaurant.')->middleware(['isSalesman', 'au
             $controller = new ReportController();
             return $controller->index($year);
         })->name('index');
-        Route::get('/export',[ReportController::class,'export'])->name('export');
-        Route::post('/filter',[ReportController::class,'filterYear'])->name('filter');
+        Route::get('/export/excel',[ReportController::class,'export'])->name('export');
+        Route::post('/filter',[ReportController::class,'filterYear'])->name('filterYear');
+        Route::post('/filter-between',[ReportController::class,'filterBetween'])->name('filterBetween');
     });
 });
 Route::get('/restaurant/create', [RestaurantController::class, 'create'])->middleware(['isSalesman'])->name('restaurant.create');

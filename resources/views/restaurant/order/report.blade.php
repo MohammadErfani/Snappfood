@@ -5,15 +5,21 @@
         </h2>
     </x-slot>
     <div class="flex">
-        <div class="flex"><h2 class="font-bold text-2xl ml-5  text-blue-800">Order Count:</h2> <span class="text-blue-900 ml-3 text-lg ">{{count($orders)}}</span></div>
-        <div class="flex"><h2 class="font-bold text-2xl ml-48  text-blue-800">Total Sale: </h2><span class="text-blue-900 ml-3 text-lg ">{{$orders->sum('total_price')}}</span></div>
-        <div><a href="{{route('restaurant.report.export')}}" class="bg-blue-600 ml-32 text-green-300 text-2xl font-bold px-3 py-1 rounded">Export</a></div>
-        <form action="{{route('restaurant.report.filter')}}" method="post" class="ml-32 ">
+        <div class="flex"><h2 class="font-bold text-xl ml-2  text-blue-800">Order Count:</h2> <span class="text-blue-900 ml-1 text-lg ">{{count($orders)}}</span></div>
+        <div class="flex"><h2 class="font-bold text-xl ml-5  text-blue-800">Total Sale: </h2><span class="text-blue-900 ml-1 text-lg ">{{$orders->sum('total_price')}}</span></div>
+        <form action="{{route('restaurant.report.filterYear')}}" method="post" class="ml-10">
             @csrf
-            <input name="year" type="number" step="1" value="{{$year}}" min="2000" max="{{now()->year}}" class="rounded-md border border-[#e0e0e0] bg-white  px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md mr-2" >
-            <button type="submit" class="bg-purple-600 text-green-300 rounded text-2xl font-bold px-2 py-1"> Filter</button>
+            <input name="year" type="number" step="1" value="{{$year??''}}" min="2000" max="{{now()->year}}" class="rounded-md border border-[#e0e0e0] bg-white  px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md " >
+            <button type="submit" class="bg-purple-600 text-green-300 rounded  font-bold px-2 py-1"> Filter By Year</button>
+        </form>
+        <form action="{{route('restaurant.report.filterBetween')}}" method="post" class="ml-10">
+            @csrf
+            <input name="start" type="date" value="{{$start??''}}" step="1" class="rounded-md border border-[#e0e0e0] bg-white  px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md " >
+            <input name="end" type="date" value="{{$end??''}}" step="1" class="rounded-md border border-[#e0e0e0] bg-white  px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md " >
+            <button type="submit" class="bg-purple-600 text-green-300 rounded  font-bold px-2 py-1 items-center"> Filter Between</button>
         </form>
     </div>
+    <div class="mt-2"><a href="{{route('restaurant.report.export')}}" class="bg-purple-600 ml-2 text-green-300 text-lg font-bold px-3 py-1 rounded">Export Excel</a></div>
         <table class="w-5/6  text-left text-green-800 font-extrabold dark:text-gray-400 mt-3 w-1/2">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -24,13 +30,13 @@
             <tbody>
             @forelse($orders as $order )
                 <tr>
-                    <td class="py-4 px-6 text-xl">
+                    <td class="py-4 px-6 text-lg">
                         @foreach($order->foods as $food)
                             <a
                                 href="{{route('restaurant.order.show',$order->id)}}">{{$food->name}} {{$order->foodCounts()[$food->id]}}</a><br>
                         @endforeach
                     </td>
-                    <td class="py-4 px-6 text-xl">
+                    <td class="py-4 px-6 text-lg">
                         <a href="{{route('restaurant.order.show',$order->id)}}">{{$order->total_price}}</a>
                     </td>
                 </tr>
