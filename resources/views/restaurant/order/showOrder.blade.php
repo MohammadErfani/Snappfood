@@ -19,7 +19,6 @@
         @forelse($order->foods as $food )
             <tr>
 
-                {{--                <a href="{{route('music.edit',$music->id)}}">--}}
                 <td class="py-4 px-6"><a href="{{route('restaurant.food.edit',$food->id)}}">
                         @if($food->picture)
                             <img src="{{asset($food->picture)}}" class="w-28" alt="">
