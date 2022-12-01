@@ -21,7 +21,7 @@ class GetRestaurantController extends Controller
     {
         Gate::authorize('has-address');
         $uAddress = auth()->user()->addresses->where('is_current', true)->first();
-        $restaurants = $this->getNearRestaurant($uAddress->latitude,$uAddress->longitude,1000);
+        $restaurants = $this->getNearRestaurant($uAddress->latitude,$uAddress->longitude,50);
         return RestaurantResource::collection($restaurants);
 
     }
@@ -34,6 +34,14 @@ class GetRestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
+        //if You want to show only nearby restaurant uncomment below lines
+//        Gate::authorize('has-address');
+//        $uAddress = auth()->user()->addresses->where('is_current', true)->first();
+//        $restaurants = $this->getNearRestaurant($uAddress->latitude,$uAddress->longitude,1);
+//        if($restaurants->where('id',$restaurant->id)->count()===0)
+//        {
+//            return response(['msg'=>"This restaurant is far from you"]);
+//        }
         return RestaurantResource::setMode('single')::make($restaurant);
     }
 
