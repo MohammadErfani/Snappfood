@@ -32,7 +32,6 @@ class ReportController extends Controller
     public function export()
     {
         return Excel::download(new OrderExport(), 'report.xlsx');
-//        return redirect()->route('restaurant.report.index', now()->year);
     }
 
     public function filterYear(Request $request)
