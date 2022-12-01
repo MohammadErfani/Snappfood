@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
                 Response::allow()
                :Response::deny("This order doesn't belong to your restaurant");
         });
-        Gate::define('create-cart',function (User $user){
+        Gate::define('has-address',function (User $user){
            return $user->addresses()->exists()?
                Response::allow()
                :Response::deny("You Don't have any Address");

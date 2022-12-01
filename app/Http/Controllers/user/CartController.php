@@ -35,7 +35,7 @@ class CartController extends Controller
     public function store(OrderRequest $request)            // redis base cart
     {
         $user = auth()->user();
-        \Illuminate\Support\Facades\Gate::forUser($user)->authorize('create-cart');
+        \Illuminate\Support\Facades\Gate::forUser($user)->authorize('has-address');
         $food = Food::find($request->food_id);
         if (!Redis::exists($user->id)) {
             if ($food->restaurant->is_open) {
