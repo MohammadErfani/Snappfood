@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\AddressRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddressRequest extends FormRequest
+class BannerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +24,8 @@ class AddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required',
-            'address'=>'required',
-            'latitude'=>'required|numeric',
-            'longitude'=>'required|numeric'
+            'title'=>'required|string',
+            'picture'=>'mimes:jpg,png|max:2048',
         ];
     }
 }
