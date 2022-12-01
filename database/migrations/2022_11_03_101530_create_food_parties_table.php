@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('food_parties', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('food_id');
-            $table->decimal('percentage');
+            $table->unsignedBigInteger('discount_id');
             $table->unsignedInteger('food_count');
+            $table->foreign('discount_id')->references('id')->on('discounts');
             $table->foreign('food_id')->references('id')->on('food');
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Models\restaurant;
 use App\Models\admin\Discount;
 use App\Models\admin\FoodCategory;
 use App\Models\Comment;
+use App\Models\FoodParty;
 use App\Models\Order;
 use App\Models\Pivots\FoodOrder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,6 +42,11 @@ class Food extends Model
     public function discount()
     {
         return $this->belongsTo(Discount::class);
+    }
+
+    public function foodParty()
+    {
+        return $this->hasOne(FoodParty::class);
     }
 
     public static function finalPrice(int $id, int $count = 1)
