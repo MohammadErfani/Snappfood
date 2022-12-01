@@ -4,9 +4,11 @@ use App\Http\Controllers\restaurant\Auth\SalesmanLoginController;
 use App\Http\Controllers\restaurant\Auth\SalesmanRegisterController;
 use App\Http\Controllers\restaurant\CommentController;
 use App\Http\Controllers\restaurant\FoodController;
+use App\Http\Controllers\restaurant\FoodPartyController;
 use App\Http\Controllers\restaurant\OrderController;
 use App\Http\Controllers\restaurant\ReportController;
 use App\Http\Controllers\restaurant\RestaurantController;
+use App\Models\FoodParty;
 use Illuminate\Support\Facades\Route;
 
 // authentication
@@ -28,6 +30,7 @@ Route::prefix('/restaurant')->name('restaurant.')->middleware(['isSalesman', 'au
     Route::patch('/edit', [RestaurantController::class, 'changeStatus'])->name('status');
 
     Route::resource('/food', FoodController::class);
+    Route::resource('/foodParty',FoodPartyController::class);
     Route::prefix('order')->name('order.')->group(function () {
         Route::get('/show/{order}', [OrderController::class, 'show'])->name('show');
         Route::patch('/accept/{order}',[OrderController::class,'accept'])->name('accept');

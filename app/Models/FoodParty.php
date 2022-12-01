@@ -11,6 +11,7 @@ class FoodParty extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['food_count','food_id','discount_id'];
     public function food()
     {
         $this->belongsTo(Food::class);
