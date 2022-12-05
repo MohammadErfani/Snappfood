@@ -48,12 +48,12 @@ trait ReportTrait
 
     public function countChartBetween($start,$end)
     {
-        return Order::select([DB::raw("Sum(total_price) as sale"), DB::raw("Date(created_at) as date")])
+        return Order::select([DB::raw("COUNT(*) as count"), DB::raw("Date(created_at) as date")])
             ->where('status', Order::DELIVERED)
             ->where('restaurant_id', Auth::guard('salesman')->user()->restaurant->id)
             ->whereBetween('created_at',[$start,$end])
             ->groupBy(DB::raw("Date(created_at)"))
-            ->pluck('sale', 'date');
+            ->pluck('count', 'date');
     }
 
     public function saleChartBetween($start,$end)
