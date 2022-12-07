@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\restaurant;
 
+use Facades\App\Caching\RestaurantCategories;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RestaurantRequest;
 use App\Models\Address;
@@ -37,7 +38,7 @@ class RestaurantController extends Controller
     public function create()
     {
         Gate::forUser(Auth::guard('salesman')->user())->authorize('create-restaurant');
-        return view('restaurant.createRestaurant', ['restaurantCategories' => RestaurantCategory::all()]);
+        return view('restaurant.createRestaurant', ['restaurantCategories' => RestaurantCategories::all()]);
     }
 
     /**
@@ -95,7 +96,7 @@ class RestaurantController extends Controller
     {
 
         $restaurant = Auth::guard('salesman')->user()->restaurant;
-        $restaurantCategories = RestaurantCategory::all();
+        $restaurantCategories = RestaurantCategories::all();
         $weekday = Schedule::WEEKDAY;
         return view('restaurant.editRestaurant', compact('restaurant', 'restaurantCategories', 'weekday'));
     }

@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Caching\Discounts;
+use App\Models\admin\Discount;
 use App\Models\admin\FoodCategory;
 use App\Models\admin\RestaurantCategory;
 use App\Models\Order;
+use App\Observers\DiscountObserver;
 use App\Observers\FoodCategoryObserver;
 use App\Observers\OrderObserver;
 use App\Observers\RestaurantCategoryObserver;
@@ -36,6 +39,7 @@ class EventServiceProvider extends ServiceProvider
         Order::observe(OrderObserver::class);
         FoodCategory::observe(FoodCategoryObserver::class);
         RestaurantCategory::observe(RestaurantCategoryObserver::class);
+        Discount::observe(DiscountObserver::class);
     }
 
     /**

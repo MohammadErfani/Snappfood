@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use Facades\App\Caching\Discounts;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DiscountRequest;
 use App\Models\admin\Discount;
@@ -18,7 +19,7 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        $discounts = Discount::all();
+        $discounts = Discounts::all();
 
         return view('admin.discount.discounts',compact('discounts'));
     }

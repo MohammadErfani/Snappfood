@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\restaurant;
 
+use Facades\App\Caching\Discounts;
+use Facades\App\Caching\FoodCategories;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FoodRequest;
 use App\Models\admin\Discount;
@@ -31,7 +33,7 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('restaurant.food.createFood', ['foodCategories' => FoodCategory::all()]);
+        return view('restaurant.food.createFood', ['foodCategories' => FoodCategories::all()]);
     }
 
     /**
@@ -84,8 +86,8 @@ class FoodController extends Controller
      */
     public function edit(Food $food)
     {
-        $foodCategories = FoodCategory::all();
-        $discounts = Discount::all();
+        $foodCategories = FoodCategories::all();
+        $discounts = Discounts::all();
         return view('restaurant.food.editFood', compact('food', 'foodCategories', 'discounts'));
     }
 
