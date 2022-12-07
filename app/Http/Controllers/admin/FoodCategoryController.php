@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use Facades\App\Caching\FoodCategories;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\admin\FoodCategory;
@@ -18,7 +19,7 @@ class FoodCategoryController extends Controller
      */
     public function index()
     {
-        $foodCategories = FoodCategory::all();
+        $foodCategories = FoodCategories::all();
         return view('admin.foodCategory.foodCategories',compact('foodCategories'));
     }
 
@@ -29,7 +30,7 @@ class FoodCategoryController extends Controller
      */
     public function create()
     {
-        $foodCategories = FoodCategory::all();
+        $foodCategories = FoodCategories::all();
         return view('admin.foodCategory.createFoodCategory',compact('foodCategories'));
     }
 
@@ -73,7 +74,7 @@ class FoodCategoryController extends Controller
      */
     public function edit(FoodCategory $foodCategory)
     {
-        return view('admin.foodCategory.editFoodCategory',['foodCategory'=>$foodCategory,'parentCategories'=>FoodCategory::all()]);
+        return view('admin.foodCategory.editFoodCategory',['foodCategory'=>$foodCategory,'parentCategories'=>FoodCategories::all()]);
     }
 
     /**

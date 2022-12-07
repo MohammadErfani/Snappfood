@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Caching;
+
+use App\Models\admin\FoodCategory;
+
+class FoodCategories extends Caching
+{
+    public const KEY = 'FOODCATEGORIES';
+
+    public function all()
+    {
+
+        return $this->cache(FoodCategory::all());
+    }
+
+
+}

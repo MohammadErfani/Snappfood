@@ -15,7 +15,7 @@ class Restaurant extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'phone', 'bank_account', 'picture', 'salesman_id','is_open'];
-    protected $with=['address','schedules','comments'];
+    protected $with=['address','schedules','comments','foods'];
 
     public function restaurantCategories()
     {

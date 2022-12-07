@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use Facades\App\Caching\RestaurantCategories;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\admin\RestaurantCategory;
@@ -18,7 +19,7 @@ class RestaurantCategoryController extends Controller
      */
     public function index()
     {
-        $restaurantCategories = RestaurantCategory::all();
+        $restaurantCategories = RestaurantCategories::all();
         return view('admin.restaurantCategory.restaurantCategories',compact('restaurantCategories'));
     }
 
@@ -29,7 +30,7 @@ class RestaurantCategoryController extends Controller
      */
     public function create()
     {
-        $restaurantCategories = RestaurantCategory::all();
+        $restaurantCategories = RestaurantCategories::all();
         return view('admin.restaurantCategory.createRestaurantCategory',compact('restaurantCategories'));
     }
 
@@ -73,7 +74,7 @@ class RestaurantCategoryController extends Controller
      */
     public function edit(RestaurantCategory $restaurantCategory)
     {
-        return view('admin.restaurantCategory.editFoodCategory',['foodCategory'=>$restaurantCategory,'parentCategories'=>RestaurantCategory::all()]);
+        return view('admin.restaurantCategory.editRestaurantCategory',['restaurantCategory'=>$restaurantCategory,'parentCategories'=>RestaurantCategory::all()]);
 
     }
 

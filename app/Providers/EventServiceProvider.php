@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\admin\FoodCategory;
+use App\Models\admin\RestaurantCategory;
 use App\Models\Order;
+use App\Observers\FoodCategoryObserver;
 use App\Observers\OrderObserver;
+use App\Observers\RestaurantCategoryObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,6 +34,8 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Order::observe(OrderObserver::class);
+        FoodCategory::observe(FoodCategoryObserver::class);
+        RestaurantCategory::observe(RestaurantCategoryObserver::class);
     }
 
     /**

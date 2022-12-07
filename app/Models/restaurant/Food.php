@@ -18,6 +18,7 @@ class Food extends Model
 
     protected $fillable = ['name', 'price', 'picture', 'material', 'restaurant_id', 'discount_id'];
 
+    protected $with = ['comments','foodCategories'];
     public function foodCategories()
     {
         return $this->belongsToMany(FoodCategory::class);
