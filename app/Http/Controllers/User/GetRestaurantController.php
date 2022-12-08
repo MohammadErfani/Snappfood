@@ -24,7 +24,7 @@ class GetRestaurantController extends Controller
     {
         Gate::authorize('has-address');
         $uAddress = auth()->user()->addresses->where('is_current', true)->first();
-        $restaurants = $this->getNearRestaurant($uAddress->latitude,$uAddress->longitude,50);
+        $restaurants = $this->getNearRestaurant($uAddress->latitude,$uAddress->longitude,10);
         return RestaurantResource::collection($restaurants);
 
     }

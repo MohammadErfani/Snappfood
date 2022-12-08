@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\UserCommentResource;
 use App\Models\Comment;
 use App\Models\Order;
 use App\Models\Restaurant\Food;
@@ -48,4 +49,13 @@ class CommentController extends Controller
         return CommentResource::collection($comments);
     }
 
+    /**
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     *
+     */
+    public function showUserComments()
+    {
+        $comments = auth()->user()->comments;
+        return UserCommentResource::collection($comments);
+    }
 }
