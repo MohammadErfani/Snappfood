@@ -16,6 +16,15 @@
             @csrf
             <input name="start" type="date" value="{{$start??''}}" step="1" class="rounded-md border border-[#e0e0e0] bg-white  px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md " >
             <input name="end" type="date" value="{{$end??''}}" step="1" class="rounded-md border border-[#e0e0e0] bg-white  px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md " >
+            @if ($errors->any())
+                <div class="mt-3 bg-red-50 border border-red-500 text-red-900  text-sm rounded-lg ">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <button type="submit" class="bg-purple-600 text-green-300 rounded  font-bold px-2 py-1 items-center"> Filter Between</button>
         </form>
     </div>

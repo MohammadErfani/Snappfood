@@ -71,6 +71,9 @@ class ReportController extends Controller
                 $start = $request->start;
                 $end = $request->end;
                 return view('restaurant.order.report', compact('orders', 'countData', 'countLabel', 'priceData', 'priceLabel', 'start', 'end'));
+            }else{
+                return redirect()->route('restaurant.report.index', now()->year)->withErrors(['time'=>"Your filter isn't correct"]);
+
             }
         }
         return redirect()->route('restaurant.report.index', now()->year);
