@@ -6,16 +6,29 @@ use Carbon\Carbon;
 
 abstract class Caching
 {
+    /**
+     * This class is parent for all model we want to cache
+     */
+
+    /**
+     * constant KEY: cache key, must override in all children class
+     */
     const KEY = 'KEY';
 
-    public function getCacheKey()
+    /**
+     * @return string
+     */
+    public function getCacheKey():string
     {
         return static::KEY;
     }
 
     abstract public function all();
 
-
+    /**
+     * @param $cacheValue  // Model::all()
+     * @return mixed  //check for cache or caching data and return
+     */
     public function cache($cacheValue)
     {
         $key = $this->getCacheKey();
@@ -24,6 +37,10 @@ abstract class Caching
         });
     }
 
+    /**
+     * Delete Cache and call all function to reCache data
+     * @return void
+     */
     public function reCache()
     {
         $key = $this->getCacheKey();

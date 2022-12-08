@@ -6,19 +6,27 @@ use App\Models\admin\Discount;
 use App\Models\restaurant\Food;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FoodParty extends Model
 {
     use HasFactory;
 
     protected $fillable = ['food_count','food_id','discount_id'];
-    public function food()
+
+    /**
+     * @return BelongsTo
+     */
+    public function food():BelongsTo
     {
-        $this->belongsTo(Food::class);
+        return $this->belongsTo(Food::class);
     }
 
-    public function discount()
+    /**
+     * @return BelongsTo
+     */
+    public function discount():BelongsTo
     {
-        $this->belongsTo(Discount::class);
+        return $this->belongsTo(Discount::class);
     }
 }

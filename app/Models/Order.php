@@ -7,12 +7,18 @@ use App\Models\restaurant\Food;
 use App\Models\restaurant\Restaurant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * todo : define const for order status
+     */
     const PAID = 0;
     const ADDED = 1;
     const REJECTED = 2;
@@ -21,17 +27,26 @@ class Order extends Model
     const DELIVERED = 5;
     protected $fillable = ['address_id', 'restaurant_id', 'user_id', 'status','total_price'];
 
-    public function comment()
+    /**
+     * @return HasOne
+     */
+    public function comment():HasOne
     {
         return $this->hasOne(Comment::class);
     }
 
-    public function foods()
+    /**
+     * @return BelongsToMany
+     */
+    public function foods():BelongsToMany
     {
         return $this->belongsToMany(Food::class)->using(FoodOrder::class);
     }
 
-    public function foodCounts()
+    /**
+     * @return array
+     */
+    public function foodCounts():array
     {
         $foods = $this->foods;
         $counts =[];
@@ -42,16 +57,26 @@ class Order extends Model
 
     }
 
-    public function address()
+    /**
+     * @return BelongsTo
+     */
+    public function address():BelongsTo
     {
         return $this->belongsTo(Address::class);
     }
-    public function restaurant()
+
+    /**
+     * @return BelongsTo
+     */
+    public function restaurant():BelongsTo
     {
         return $this->belongsTo(Restaurant::class);
     }
 
-    public function user()
+    /**
+     * @return BelongsTo
+     */
+    public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -59,7 +84,7 @@ class Order extends Model
     /**
      * @return float|int
      */
-    public function calculateTotal():int
+    public function calculateTotal():int|float
     {
         $total = 0;
         $foods = $this->foods;

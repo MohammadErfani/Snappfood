@@ -5,6 +5,7 @@ namespace App\Models\admin;
 use App\Models\FoodParty;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Discount extends Model
@@ -13,7 +14,10 @@ class Discount extends Model
 
     protected $fillable = ['title', 'percentage'];
 
-    public function foodParties()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function foodParties():HasMany
     {
         return $this->hasMany(FoodParty::class);
     }

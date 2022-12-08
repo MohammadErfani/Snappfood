@@ -4,11 +4,16 @@ namespace App\Models\restaurant;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Schedule extends Model
 {
     use HasFactory, SoftDeletes;
+
+    /**
+     * Todo: set Weekday as number of date base on Carbon
+     */
     const WEEKDAY = [
         'sunday'=>0,
         'monday'=>1,
@@ -21,7 +26,10 @@ class Schedule extends Model
 
     protected $fillable = ['weekday', 'open_hour', 'close_hour', 'restaurant_id'];
 
-    public function restaurant()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function restaurant():BelongsTo
     {
         return $this->belongsTo(Restaurant::class);
     }

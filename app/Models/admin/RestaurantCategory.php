@@ -5,6 +5,8 @@ namespace App\Models\admin;
 use App\Models\restaurant\Restaurant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RestaurantCategory extends Model
@@ -13,12 +15,18 @@ class RestaurantCategory extends Model
 
     protected $fillable = ['name', 'picture', 'parent_category'];
 
-    public function restaurants()
+    /**
+     * @return BelongsToMany
+     */
+    public function restaurants():BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class);
     }
 
-    public function parent()
+    /**
+     * @return BelongsTo
+     */
+    public function parent():BelongsTo
     {
         return $this->belongsTo(RestaurantCategory::class, 'parent_category');
     }

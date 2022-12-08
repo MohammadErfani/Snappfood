@@ -4,6 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,20 +52,26 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /*
-     * return all the addresses for user
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function addresses()
+    public function addresses():MorphMany
     {
         return $this->morphMany(Address::class, 'addressable');
     }
 
-    public function comments()
+    /**
+     * @return HasManyThrough
+     */
+    public function comments():HasManyThrough
     {
         return $this->hasManyThrough(Comment::class,Order::class);
     }
 
-    public function orders()
+    /**
+     * @return HasMany
+     */
+    public function orders():HasMany
     {
         return $this->hasMany(Order::class);
     }
