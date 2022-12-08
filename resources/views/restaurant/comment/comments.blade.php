@@ -1,7 +1,7 @@
 <x-restaurant-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            All Orders
+            All Comments
         </h2>
     </x-slot>
     <table class="w-5/6  text-center text-green-800 font-extrabold dark:text-gray-400 mt-3">

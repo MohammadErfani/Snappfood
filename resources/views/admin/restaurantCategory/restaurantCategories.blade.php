@@ -1,7 +1,7 @@
 <x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-pink-700 leading-tight text-center">
-            تمام دسته‌بندی‌های رستوران
+            All Restaurant Categories
         </h2>
     </x-slot>
     <table class="w-5/6  text-left text-green-800 font-extrabold dark:text-gray-400 mt-3">
