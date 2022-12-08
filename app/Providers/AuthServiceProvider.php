@@ -3,7 +3,7 @@
 namespace App\Providers;
 
  use App\Models\Order;
- use App\Models\restaurant\Salesman;
+ use App\Models\Restaurant\Salesman;
  use App\Models\User;
  use Illuminate\Auth\Access\Response;
  use Illuminate\Support\Facades\Gate;

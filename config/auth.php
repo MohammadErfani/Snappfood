@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\admin\Admin;
+use App\Models\Admin\Admin;
 
 return [
 
@@ -80,7 +80,7 @@ return [
         ],
         'salesmen'=>[
             'driver'=>'eloquent',
-            'model'=>\App\Models\restaurant\Salesman::class
+            'model'=>\App\Models\Restaurant\Salesman::class
         ],
 
         // 'users' => [

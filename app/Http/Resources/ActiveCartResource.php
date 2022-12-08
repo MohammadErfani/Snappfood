@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\restaurant\Restaurant;
+use App\Models\Restaurant\Restaurant;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ActiveCartResource extends JsonResource

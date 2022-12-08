@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Order;
-use App\Models\restaurant\Restaurant;
+use App\Models\Restaurant\Restaurant;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;

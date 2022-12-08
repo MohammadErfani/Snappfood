@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\restaurant\Restaurant;
+use App\Models\Restaurant\Restaurant;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

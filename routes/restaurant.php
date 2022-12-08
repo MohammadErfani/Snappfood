@@ -1,13 +1,13 @@
 <?php
 // Admin Routes place here except for authentication . That was in auth
-use App\Http\Controllers\restaurant\Auth\SalesmanLoginController;
-use App\Http\Controllers\restaurant\Auth\SalesmanRegisterController;
-use App\Http\Controllers\restaurant\CommentController;
-use App\Http\Controllers\restaurant\FoodController;
-use App\Http\Controllers\restaurant\FoodPartyController;
-use App\Http\Controllers\restaurant\OrderController;
-use App\Http\Controllers\restaurant\ReportController;
-use App\Http\Controllers\restaurant\RestaurantController;
+use App\Http\Controllers\Restaurant\Auth\SalesmanLoginController;
+use App\Http\Controllers\Restaurant\Auth\SalesmanRegisterController;
+use App\Http\Controllers\Restaurant\CommentController;
+use App\Http\Controllers\Restaurant\FoodController;
+use App\Http\Controllers\Restaurant\FoodPartyController;
+use App\Http\Controllers\Restaurant\OrderController;
+use App\Http\Controllers\Restaurant\ReportController;
+use App\Http\Controllers\Restaurant\RestaurantController;
 use App\Models\FoodParty;
 use Illuminate\Support\Facades\Route;
 

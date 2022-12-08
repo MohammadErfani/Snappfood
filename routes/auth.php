@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\admin\Auth\AdminLoginController;
-use App\Http\Controllers\admin\Auth\AdminRegisterController;
+use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\Auth\AdminRegisterController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -10,8 +10,8 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\restaurant\Auth\SalesmanLoginController;
-use App\Http\Controllers\restaurant\Auth\SalesmanRegisterController;
+use App\Http\Controllers\Restaurant\Auth\SalesmanLoginController;
+use App\Http\Controllers\Restaurant\Auth\SalesmanRegisterController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {

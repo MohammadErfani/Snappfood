@@ -8,7 +8,7 @@ namespace App\Models\Pivots;
 
 use App\Models\Comment;
 use App\Models\Order;
-use App\Models\restaurant\Food;
+use App\Models\Restaurant\Food;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Pivot;

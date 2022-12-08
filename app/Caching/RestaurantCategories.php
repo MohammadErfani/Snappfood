@@ -2,7 +2,7 @@
 
 namespace App\Caching;
 
-use App\Models\admin\RestaurantCategory;
+use App\Models\Admin\RestaurantCategory;
 
 class RestaurantCategories extends Caching
 {

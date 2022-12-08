@@ -1,12 +1,12 @@
 <?php
 // Admin Routes place here except for authentication . That was in auth
-use App\Http\Controllers\admin\Auth\AdminLoginController;
-use App\Http\Controllers\admin\Auth\AdminRegisterController;
-use App\Http\Controllers\admin\BannerController;
-use App\Http\Controllers\admin\DeleteCommentController;
-use App\Http\Controllers\admin\DiscountController;
-use App\Http\Controllers\admin\FoodCategoryController;
-use App\Http\Controllers\admin\RestaurantCategoryController;
+use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Admin\Auth\AdminRegisterController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\DeleteCommentController;
+use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\FoodCategoryController;
+use App\Http\Controllers\Admin\RestaurantCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/admin')->name('admin.')->middleware(['isAdmin'])->group(function (){

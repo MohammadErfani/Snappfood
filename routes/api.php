@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\user\AddressController;
-use App\Http\Controllers\user\auth\UserController;
-use App\Http\Controllers\user\CommentController;
-use App\Http\Controllers\user\GetRestaurantController;
-use App\Http\Controllers\user\CartController;
-use App\Http\Controllers\user\WalletController;
+use App\Http\Controllers\User\AddressController;
+use App\Http\Controllers\User\auth\UserController;
+use App\Http\Controllers\User\CommentController;
+use App\Http\Controllers\User\GetRestaurantController;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\WalletController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

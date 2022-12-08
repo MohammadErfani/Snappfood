@@ -2,7 +2,7 @@
 
 namespace App\Caching;
 
-use App\Models\admin\FoodCategory;
+use App\Models\Admin\FoodCategory;
 
 class FoodCategories extends Caching
 {

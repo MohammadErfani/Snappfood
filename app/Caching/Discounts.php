@@ -2,7 +2,7 @@
 
 namespace App\Caching;
 
-use App\Models\admin\Discount;
+use App\Models\Admin\Discount;
 
 class Discounts extends Caching
 {

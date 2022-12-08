@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\restaurant\Food;
+use App\Models\Restaurant\Food;
 use Illuminate\Contracts\Validation\Rule;
 
 class FoodExistRule implements Rule

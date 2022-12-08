@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Models\Pivots\FoodOrder;
-use App\Models\restaurant\Food;
-use App\Models\restaurant\Restaurant;
+use App\Models\Restaurant\Food;
+use App\Models\Restaurant\Restaurant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

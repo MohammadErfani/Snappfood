@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use Facades\App\Caching\RestaurantCategories;
-use App\Models\admin\RestaurantCategory;
+use App\Models\Admin\RestaurantCategory;
 
 class RestaurantCategoryObserver
 {
@@ -16,7 +16,7 @@ class RestaurantCategoryObserver
     /**
      * Handle the RestaurantCategory "created" event.
      *
-     * @param  \App\Models\admin\RestaurantCategory  $restaurantCategory
+     * @param  \App\Models\Admin\RestaurantCategory  $restaurantCategory
      * @return void
      */
     public function created(RestaurantCategory $restaurantCategory)
@@ -27,7 +27,7 @@ class RestaurantCategoryObserver
     /**
      * Handle the RestaurantCategory "updated" event.
      *
-     * @param  \App\Models\admin\RestaurantCategory  $restaurantCategory
+     * @param  \App\Models\Admin\RestaurantCategory  $restaurantCategory
      * @return void
      */
     public function updated(RestaurantCategory $restaurantCategory)
@@ -38,7 +38,7 @@ class RestaurantCategoryObserver
     /**
      * Handle the RestaurantCategory "deleted" event.
      *
-     * @param  \App\Models\admin\RestaurantCategory  $restaurantCategory
+     * @param  \App\Models\Admin\RestaurantCategory  $restaurantCategory
      * @return void
      */
     public function deleted(RestaurantCategory $restaurantCategory)
@@ -49,7 +49,7 @@ class RestaurantCategoryObserver
     /**
      * Handle the RestaurantCategory "restored" event.
      *
-     * @param  \App\Models\admin\RestaurantCategory  $restaurantCategory
+     * @param  \App\Models\Admin\RestaurantCategory  $restaurantCategory
      * @return void
      */
     public function restored(RestaurantCategory $restaurantCategory)
@@ -60,7 +60,7 @@ class RestaurantCategoryObserver
     /**
      * Handle the RestaurantCategory "force deleted" event.
      *
-     * @param  \App\Models\admin\RestaurantCategory  $restaurantCategory
+     * @param  \App\Models\Admin\RestaurantCategory  $restaurantCategory
      * @return void
      */
     public function forceDeleted(RestaurantCategory $restaurantCategory)

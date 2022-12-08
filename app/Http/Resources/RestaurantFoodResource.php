@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use App\Models\admin\FoodCategory;
-use App\Models\restaurant\Restaurant;
+use App\Models\Admin\FoodCategory;
+use App\Models\Restaurant\Restaurant;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RestaurantFoodResource extends JsonResource

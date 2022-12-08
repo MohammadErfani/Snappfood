@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\restaurant\Schedule;
+use App\Models\Restaurant\Schedule;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class RestaurantScheduleResource extends JsonResource

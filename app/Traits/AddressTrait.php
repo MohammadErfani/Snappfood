@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Models\restaurant\Restaurant;
+use App\Models\Restaurant\Restaurant;
 
 trait AddressTrait
 {

@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use Facades\App\Caching\Discounts;
-use App\Models\admin\Discount;
+use App\Models\Admin\Discount;
 
 class DiscountObserver
 {
@@ -16,7 +16,7 @@ class DiscountObserver
     /**
      * Handle the Discount "created" event.
      *
-     * @param  \App\Models\admin\Discount  $discount
+     * @param  \App\Models\Admin\Discount  $discount
      * @return void
      */
     public function created(Discount $discount)
@@ -27,7 +27,7 @@ class DiscountObserver
     /**
      * Handle the Discount "updated" event.
      *
-     * @param  \App\Models\admin\Discount  $discount
+     * @param  \App\Models\Admin\Discount  $discount
      * @return void
      */
     public function updated(Discount $discount)
@@ -38,7 +38,7 @@ class DiscountObserver
     /**
      * Handle the Discount "deleted" event.
      *
-     * @param  \App\Models\admin\Discount  $discount
+     * @param  \App\Models\Admin\Discount  $discount
      * @return void
      */
     public function deleted(Discount $discount)
@@ -49,7 +49,7 @@ class DiscountObserver
     /**
      * Handle the Discount "restored" event.
      *
-     * @param  \App\Models\admin\Discount  $discount
+     * @param  \App\Models\Admin\Discount  $discount
      * @return void
      */
     public function restored(Discount $discount)
@@ -60,7 +60,7 @@ class DiscountObserver
     /**
      * Handle the Discount "force deleted" event.
      *
-     * @param  \App\Models\admin\Discount  $discount
+     * @param  \App\Models\Admin\Discount  $discount
      * @return void
      */
     public function forceDeleted(Discount $discount)

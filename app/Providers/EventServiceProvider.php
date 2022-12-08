@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use App\Caching\Discounts;
-use App\Models\admin\Discount;
-use App\Models\admin\FoodCategory;
-use App\Models\admin\RestaurantCategory;
+use App\Models\Admin\Discount;
+use App\Models\Admin\FoodCategory;
+use App\Models\Admin\RestaurantCategory;
 use App\Models\Order;
 use App\Observers\DiscountObserver;
 use App\Observers\FoodCategoryObserver;
